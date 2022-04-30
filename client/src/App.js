@@ -5,6 +5,7 @@ import './App.css';
 import {collection, getDocs} from 'firebase/firestore';
 import NewExpense from './components/NewExpense';
 import SignUp from './components/SignUp';
+import Category from './components/Category';
 
 function App() {
   const [expenses, setExpenses] = useState([]);
@@ -59,10 +60,10 @@ function App() {
         );
       })}
 
-      {/* {user.email ? <h2>Welcome {useState.user.first_name}</h2> : 
+      {user.email ? <h2>Welcome {useState.user.first_name}</h2> : 
         <SignUp signUp={signUp} />
-      } */}
-
+      }
+      <Category />
     </div>
 );
 }
