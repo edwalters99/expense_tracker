@@ -4,8 +4,12 @@ import './App.css';
 // import {db} from './firebase';
 import {collection, getDocs} from 'firebase/firestore';
 import NewExpense from './components/NewExpense';
+import SignUp from './components/SignUp';
+
 function App() {
   const [expenses, setExpenses] = useState([]);
+  const [user, setUser] = useState({});
+
   // const expensesCollectionRef = collection(db, 'Expenses');
 
   useEffect(() => {
@@ -18,6 +22,28 @@ function App() {
     getExpenses();
   }, []);
   console.log(expenses);
+
+  function signUp (user) {
+    fetch('http://localhost:3000/users', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: {
+          email: user.email,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          password: user.password,
+          password_confirmation: user.password_confirmation
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(returnedUser => setUser(returnedUser))
+  }
+
   return (
     <div className="App">
       <input placeholder="Name...."/>
@@ -32,6 +58,11 @@ function App() {
           </div>
         );
       })}
+
+      {/* {user.email ? <h2>Welcome {useState.user.first_name}</h2> : 
+        <SignUp signUp={signUp} />
+      } */}
+
     </div>
 );
 }
