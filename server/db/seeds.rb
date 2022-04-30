@@ -50,11 +50,17 @@ t3 = Transaction.create :type_of => 1, :amount => 850, :title => "Salary - Weekl
 puts "#{ Transaction.count } transactions"
 
 
+# assign transactions to categories
+c1.transactions << t1
+c2.transactions << t2
+c4.transactions << t3
 
+# assign transactions to users
 u1.transactions << t1
 u2.transactions << t2
 u3.transactions << t3
 
+# assign users to families
 f1.users << u2
 f1.users << u4
 
