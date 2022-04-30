@@ -58,6 +58,9 @@ u3.transactions << t3
 f1.users << u2
 f1.users << u4
 
+c1.transactions << t1
+
+
 
 
 
