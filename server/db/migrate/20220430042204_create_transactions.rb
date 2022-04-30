@@ -1,7 +1,7 @@
 class CreateTransactions < ActiveRecord::Migration[5.2]
   def change
     create_table :transactions do |t|
-      t.integer :type
+      t.column :type_of, :integer, default: 0
       t.decimal :amount
       t.text :title
       t.text :description
