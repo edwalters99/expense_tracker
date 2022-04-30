@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2022_04_30_042204) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer "type"
+    t.integer "type_of", default: 0
     t.decimal "amount"
     t.text "title"
     t.text "description"
