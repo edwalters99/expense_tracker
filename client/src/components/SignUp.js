@@ -1,21 +1,18 @@
 import React, {Component} from 'react'
 
 class SignUp extends Component {
-    constructor() {
-        super();
-        this.state = {
-            email: '',
-            first_name: '',
-            last_name: '',
-            password: '',
-            password_confirmation: ''
-        }
+    // doesn't need constructor because doesnt use the inicial state
+    state = {
+        email: '',
+        first_name: '',
+        last_name: '',
+        password: '',
+        password_confirmation: ''
     }
 
+    // dynamic function
     handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
+        this.setState({[event.target.name]: event.target.value})
     }
 
     handleSubmit = (event) => {
