@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 // import {db} from './firebase';
 import {collection, getDocs} from 'firebase/firestore';
-import NewExpense from './components/NewExpense';
+import NewExpense from './components/Expense/NewExpense';
 import SignUp from './components/SignUp';
 import Category from './components/Category';
 
