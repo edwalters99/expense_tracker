@@ -37,14 +37,16 @@ const TransactionForm = (props)=>{
         data.append('file', image)
         data.append('upload_preset', 'tutorial')
         data.append("cloud_name", 'breellz')
-        fetch("https://api.cloudinary.com/v1_1/dgpwctfjt/image/upload",{
+        fetch("https://api.cloudinary.com/v1_1/breellz/image/upload",{
             method: 'post',
             body: data
         }).then((resp) => resp.json()).then(data => {
             setUrl(data.url)
-        })
+        }).catch(err => console.log(err))
         console.log(url);
     }
+
+
     const submitHandler =(event) => {
         event.preventDefault();  
 
@@ -54,12 +56,15 @@ const TransactionForm = (props)=>{
         }
         setAmountIsValid(true);
 
-        const expenseData = {
-            description: enteredDescription,   
-            amount: enteredAmount, 
+        const transactionData = {
+            typeof: Number(enteredType),
+            amount: Number(enteredAmount), 
+            title: enteredTitle,
+            description: enteredDescription,  
+            receipt: url, 
             date: new Date(enteredDate)
         };
-        props.onSaveExpenseData(expenseData);
+        props.onSaveTransactionData(transactionData);
         setEnteredDescription('');
         setEnteredAmount('');
         setEnteredDate('');
@@ -77,14 +82,14 @@ const TransactionForm = (props)=>{
                 <label>Income/Expense</label>
                 <Form.Select value={enteredType} onChange={(e) => setEnteredType(e.target.value)} required>
                 <option value="">Select Type</option>
-                <option value="Expense">Expense</option>
-                <option value="Income">Income</option>
+                <option value="0">Expense</option>
+                <option value="1">Income</option>
                 </Form.Select>
             </Col>  
 
             <Col sm={2} className="my-1">
-                <label></label>
-                <Form.Control type="Title" value={enteredTitle} onChange={titleChangeHandler}/>
+                <label>Category</label>
+                <Form.Control type="Title" value={enteredTitle} />
             </Col>
             <Col sm={2} className="my-1">
                 <label>Title</label>

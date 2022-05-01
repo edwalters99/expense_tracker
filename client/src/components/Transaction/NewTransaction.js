@@ -1,24 +1,26 @@
 import React, {useState} from 'react';
 import TransactionForm from './TransactionForm';
 import './NewTransaction.css';
+import axios from 'axios';
 
 const NewTransaction = (props) => {
     const [isEditing, setIsEditing] = useState(false);
 
-    const saveExpenseDataHandler = (enteredExpenseData) => {
-        const expenseData ={
-            ...enteredExpenseData,
-            id: "" //need to get the id from DB
-        };
-        props.onAddExpense(expenseData);
+    const TRANSACTION_SERVER_URL = "http://localhost:3000/transactions.json";
+
+    const saveTransactionDataHandler = (transactionData) => {
         setIsEditing(false);
+        console.log(transactionData);
+        axios.post(TRANSACTION_SERVER_URL, transactionData).then((reps)=>{
+            props.onAddTransaction(transactionData);
+        });
     }
     const startEditingHandler = () => {
         setIsEditing(true);
     }
 
     const stopEditingHandler =() => {
-        setIsEditing(false);
+        setIsEditing(false);    
     }
 
   return (
@@ -28,7 +30,7 @@ const NewTransaction = (props) => {
         )}
         {isEditing && (
             <TransactionForm 
-                onSaveExpenseData={saveExpenseDataHandler} 
+                onSaveTransactionData={saveTransactionDataHandler} 
                 onCancel={stopEditingHandler}
             />
         )} 
