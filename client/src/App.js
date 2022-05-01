@@ -1,5 +1,5 @@
 
-import React,{ useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import './App.css';
 import SignUp from './components/SignUp';
@@ -8,11 +8,23 @@ import Category from './components/Category/Category';
 import NewTransaction from './components/Transaction/NewTransaction';
 import Transactions from './components/Transaction/Transactions';
 import Navigation from './components/Navigation';
-
+import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState({});
   const [error, setError] = useState('');
+  // const expensesCollectionRef = collection(db, 'Expenses');
+
+  useEffect(() => {
+    const getExpenses = async () => {
+      // const data = await getDocs(expensesCollectionRef);
+      // setExpenses(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+      // console.log(data.docs);
+    };
+
+    getExpenses();
+  }, []);
+  // console.log(expenses);
   const [transactions, setTransactions] = useState(sample_transactions);
 
   function signUp (user) {
@@ -61,6 +73,24 @@ function App() {
     })
   }
 
+  useEffect(() => {
+    let token = localStorage.getItem('token')
+    if (token) {
+      fetch('http://localhost:3000/profile', {
+        method: 'GET',
+        headers: {  
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(result => {
+        if (result.id) {
+          setUser(result)
+        }
+      })
+    }
+  }, []);
+
   const addTransactionHandler = (transaction) => {
     setTransactions((prevTransactions) => {
       return [transaction, ...prevTransactions];
@@ -70,18 +100,20 @@ function App() {
   return (
     <div className="App">
       <Navigation />
-      {console.log(user)}
-
-      {user.email ? <h2>Welcome, {user.first_name}</h2> :
-      (
-        <>
+      {user.email ?
+        (<>
+          <h2>Welcome, {user.first_name}</h2>
+          <button onClick={() => {
+            localStorage.removeItem('token')
+            setUser({})
+          }} >Log Out</button>
+        </>) :
+        (<>
           <SignIn signIn={signIn} error={error} />
           <SignUp signUp={signUp} />
-        </>
-      )
+        </>)
       }
       
-      {/* <Category /> */}
       <NewTransaction onAddTransaction={addTransactionHandler}/>
       <Transactions items={transactions}/>
       
