@@ -1,11 +1,14 @@
 
 import React,{ useState } from 'react';
+import { Link } from "react-router-dom";
 import './App.css';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import Category from './components/Category';
+import Category from './components/Category/Category';
 import NewTransaction from './components/Transaction/NewTransaction';
 import Transactions from './components/Transaction/Transactions';
+import Navigation from './components/Navigation';
+
 
 function App() {
   const [user, setUser] = useState({});
@@ -66,7 +69,7 @@ function App() {
 
   return (
     <div className="App">
-
+      <Navigation />
       {console.log(user)}
 
       {user.email ? <h2>Welcome, {user.first_name}</h2> :
@@ -81,6 +84,10 @@ function App() {
       {/* <Category /> */}
       <NewTransaction onAddTransaction={addTransactionHandler}/>
       <Transactions items={transactions}/>
+      
+      
+      <Link to="/categories">Categories</Link>
+
     </div>
 );
 }
