@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import { Form , Row, Col, FormControl, Button } from 'react-bootstrap';
+import { Form , Row, Col, Button } from 'react-bootstrap';
 // import {CloudinaryContext} from 'cloudinary-react';
 
 
-const ExpenseForm = (props)=>{
+const TransactionForm = (props)=>{
     const [enteredDescription, setEnteredDescription] = useState('');
     const [enteredAmount, setEnteredAmount] = useState('');
     const [enteredDate, setEnteredDate] = useState('');
@@ -39,6 +39,7 @@ const ExpenseForm = (props)=>{
         }).then((resp) => resp.json()).then(data => {
             setUrl(data.url)
         })
+        console.log(url);
     }
     const submitHandler =(event) => {
         event.preventDefault();  
@@ -98,4 +99,4 @@ const ExpenseForm = (props)=>{
     );
 };
 
-export default ExpenseForm;
+export default TransactionForm;

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 
-import ExpenseForm from './ExpenseForm';
-import './NewExpense.css';
+import TransactionForm from './TransactionForm';
+import './NewTransaction.css';
 
-const NewExpense = (props) => {
+const NewTransaction = (props) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const saveExpenseDataHandler = (enteredExpenseData) => {
@@ -28,7 +28,7 @@ const NewExpense = (props) => {
             <button onClick={startEditingHandler}>Add New Expense</button>
         )}
         {isEditing && (
-            <ExpenseForm 
+            <TransactionForm 
                 onSaveExpenseData={saveExpenseDataHandler} 
                 onCancel={stopEditingHandler}
             />
@@ -38,4 +38,4 @@ const NewExpense = (props) => {
   );
 };
 
-export default NewExpense;
+export default NewTransaction;
