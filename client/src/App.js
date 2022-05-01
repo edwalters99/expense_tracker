@@ -3,13 +3,15 @@ import { useState, useEffect } from 'react';
 import './App.css';
 // import {db} from './firebase';
 import {collection, getDocs} from 'firebase/firestore';
-import NewExpense from './components/NewExpense';
+import NewExpense from './components/Expense/NewExpense';
 import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 import Category from './components/Category';
 
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [user, setUser] = useState({});
+  const [error, setError] = useState('');
 
   // const expensesCollectionRef = collection(db, 'Expenses');
 
@@ -45,6 +47,31 @@ function App() {
     .then(returnedUser => setUser(returnedUser))
   }
 
+  function signIn (user) {
+    fetch('http://localhost:3000/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: {
+          email: user.email,
+          password: user.password
+        }
+      })
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.token) {
+        localStorage.setItem('token', result.token)
+        setUser(result.user)
+      } else {
+        setError(result.error)
+      }
+    })
+  }
+
   return (
     <div className="App">
       <input placeholder="Name...."/>
@@ -60,10 +87,18 @@ function App() {
         );
       })}
 
-      {user.email ? <h2>Welcome {useState.user.first_name}</h2> : 
-        <SignUp signUp={signUp} />
+      {console.log(user)}
+
+      {user.email ? <h2>Welcome, {user.first_name}</h2> :
+      (
+        <>
+          <SignIn signIn={signIn} error={error} />
+          <SignUp signUp={signUp} />
+        </>
+      )
       }
-      <Category />
+      
+      {/* <Category /> */}
     </div>
 );
 }
