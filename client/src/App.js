@@ -1,5 +1,5 @@
 
-import React,{ useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import SignUp from './components/SignUp';
@@ -7,6 +7,7 @@ import SignIn from './components/SignIn';
 import Category from './components/Category';
 import NewTransaction from './components/Transaction/NewTransaction';
 import Transactions from './components/Transaction/Transactions';
+import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState({});
@@ -87,7 +88,7 @@ function App() {
         }
       })
     }
-  });
+  }, []);
 
   const addTransactionHandler = (transaction) => {
     setTransactions((prevTransactions) => {
@@ -97,17 +98,21 @@ function App() {
 
   return (
     <div className="App">
-
-      {user.email ? <h2>Welcome, {user.first_name}</h2> :
-      (
-        <>
+      {user.email ?
+        (<>
+          <h2>Welcome, {user.first_name}</h2>
+          <button onClick={() => {
+            localStorage.removeItem('token')
+            setUser({})
+          }} >Log Out</button>
+        </>) :
+        (<>
           <SignIn signIn={signIn} error={error} />
           <SignUp signUp={signUp} />
-        </>
-      )
+        </>)
       }
       
-      {/* <Category /> */}
+      <Category />
       <NewTransaction onAddTransaction={addTransactionHandler}/>
       <Transactions items={transactions}/>
     </div>
