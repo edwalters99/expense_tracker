@@ -24,7 +24,7 @@ function App() {
 
     getExpenses();
   }, []);
-  console.log(expenses);
+  // console.log(expenses);
 
   function signUp (user) {
     fetch('http://localhost:3000/users', {
@@ -72,6 +72,24 @@ function App() {
     })
   }
 
+  useEffect(() => {
+    let token = localStorage.getItem('token')
+    if (token) {
+      fetch('http://localhost:3000/profile', {
+        method: 'GET',
+        headers: {  
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(result => {
+        if (result.id) {
+          setUser(result)
+        }
+      })
+    }
+  });
+
   return (
     <div className="App">
       <input placeholder="Name...."/>
@@ -86,8 +104,6 @@ function App() {
           </div>
         );
       })}
-
-      {console.log(user)}
 
       {user.email ? <h2>Welcome, {user.first_name}</h2> :
       (
