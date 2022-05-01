@@ -46,6 +46,10 @@ t2 = Transaction.create :type_of => 0, :amount => 19.50, :title => "Travel to wo
 
 t3 = Transaction.create :type_of => 1, :amount => 850, :title => "Salary - Weekly", :date => DateTime.parse("2022-04-29 14:00"), :receipt => "https://placekitten.com/700/700"
 
+t4 = Transaction.create :type_of => 1, :amount => 1200, :title => "Salary - Monthly", :date => DateTime.parse("2022-04-30 15:00"), :receipt => "https://placekitten.com/700/700"
+
+t5 = Transaction.create :type_of => 0, :amount => 79.50, :title => "Petrol", :description => "Filled up the Ute!", :date => DateTime.parse("2022-04-29 14:05"), :receipt => "https://placekitten.com/700/700"
+
 
 puts "#{ Transaction.count } transactions"
 
@@ -54,11 +58,14 @@ puts "#{ Transaction.count } transactions"
 c1.transactions << t1
 c2.transactions << t2
 c4.transactions << t3
+c4.transactions << t4
+c2.transactions << t5
 
 # assign transactions to users
 u1.transactions << t1
 u2.transactions << t2
-u3.transactions << t3
+u3.transactions << t3 << t4 << t5
+
 
 # assign users to families
 f1.users << u2

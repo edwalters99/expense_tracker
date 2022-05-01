@@ -1,4 +1,4 @@
-.new-expense {
+.new-transaction {
     background-color: #4581ef;
     padding: 1rem;
     margin: 2rem auto;
@@ -9,7 +9,7 @@
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
   }
   
-  .new-expense button {
+  .new-transacion button {
     font: inherit;
     cursor: pointer;
     padding: 1rem 2rem;
@@ -20,19 +20,19 @@
     margin-right: 1rem;
   }
   
-  .new-expense button:hover,
-  .new-expense button:active {
-    background-color: #060a74;
-    border-color: #060a74;
+  .new-transaction button:hover,
+  .new-transaction button:active {
+    background-color: #2f4596;
+    border-color: #2f4596;
   }
   
-  .new-expense button.alternative {
+  .new-transaction button.alternative {
     color: #010531;
     border-color: transparent;
     background-color: transparent;
   }
   
-  .new-expense button.alternative:hover,
-  .new-expense button.alternative:active {
+  .new-transaction button.alternative:hover,
+  .new-transaction button.alternative:active {
     background-color: #b3cef8;
   }
