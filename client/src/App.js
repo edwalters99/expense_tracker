@@ -1,5 +1,5 @@
 
-import React,{ useState } from 'react';
+import React,{ useState, useEffect } from 'react';
 import './App.css';
 
 import SignUp from './components/SignUp';
@@ -43,7 +43,14 @@ function App() {
       })
     })
     .then(response => response.json())
-    .then(returnedUser => setUser(returnedUser))
+    .then(jsonResponse => {
+      if (jsonResponse.errors) {
+        console.log(jsonResponse.errors)
+      }
+      else {
+        setUser(jsonResponse)
+      }
+    })
   }
 
   function signIn (user) {
