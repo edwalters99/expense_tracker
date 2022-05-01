@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-
 import TransactionForm from './TransactionForm';
 import './NewTransaction.css';
 
@@ -23,7 +22,7 @@ const NewTransaction = (props) => {
     }
 
   return (
-    <div className='new-expense'>
+    <div className='new-transaction'>
         {!isEditing && (
             <button onClick={startEditingHandler}>Add New Expense</button>
         )}
@@ -33,7 +32,6 @@ const NewTransaction = (props) => {
                 onCancel={stopEditingHandler}
             />
         )} 
-
     </div>
   );
 };
