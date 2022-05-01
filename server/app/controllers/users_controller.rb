@@ -1,4 +1,11 @@
 class UsersController < ApplicationController
+  # before deploy eliminate the access of the index
+  skip_before_action :is_authorized, only: [:create, :login, :index]
+  
+  def user_profile
+    render json: @user
+  end
+  
   def index
     @users = User.all
     render json: @users
