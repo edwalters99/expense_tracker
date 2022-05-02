@@ -4,27 +4,19 @@ import { Link } from "react-router-dom";
 import './App.css';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import Category from './components/Category/Category';
 import NewTransaction from './components/Transaction/NewTransaction';
 import Transactions from './components/Transaction/Transactions';
 import Navigation from './components/Navigation';
+import Category from './components/Category/Category';
 import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState({});
-  const [error, setError] = useState('');
-  // const expensesCollectionRef = collection(db, 'Expenses');
+  const [signinError, setSigninError] = useState('');
+  const [signupErrors, setSignupErrors] = useState([]);
 
-  useEffect(() => {
-    const getExpenses = async () => {
-      // const data = await getDocs(expensesCollectionRef);
-      // setExpenses(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-      // console.log(data.docs);
-    };
 
-    getExpenses();
-  }, []);
-  // console.log(expenses);
+
   const [transactions, setTransactions] = useState(sample_transactions);
 
   function signUp (user) {
@@ -47,6 +39,7 @@ function App() {
     .then(response => response.json())
     .then(jsonResponse => {
       if (jsonResponse.errors) {
+        setSignupErrors(jsonResponse.errors);
         console.log(jsonResponse.errors)
       }
       else {
@@ -75,7 +68,7 @@ function App() {
         localStorage.setItem('token', result.token)
         setUser(result.user)
       } else {
-        setError(result.error)
+        setSigninError(result.error)
       }
     })
   }
@@ -116,16 +109,15 @@ function App() {
           }} >Log Out</button>
         </>) :
         (<>
-          <SignIn signIn={signIn} error={error} />
-          <SignUp signUp={signUp} />
+          <SignIn signIn={signIn} error={signinError} />
+          <SignUp signUp={signUp} errors = {signupErrors}/>
         </>)
       }
       
       <NewTransaction onAddTransaction={addTransactionHandler}/>
       <Transactions items={transactions}/>
+
       
-      
-      <Link to="/categories">Categories</Link>
 
     </div>
 );

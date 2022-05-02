@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import './SignUp.css';
 
 class SignUp extends Component {
     // doesn't need constructor because doesnt use the inicial state
@@ -21,6 +22,7 @@ class SignUp extends Component {
     }
     
     render() {
+       
         return(
             <form onSubmit={this.handleSubmit}>
                 <h1>Sign Up</h1>
@@ -41,6 +43,13 @@ class SignUp extends Component {
                 <input name='password_confirmation' type='password' value={this.state.password_confirmation} onChange={this.handleChange} />
 
                 <input type='submit' value='Register' />
+
+                {this.props.errors ? 
+                    <ul className = "signup-form-errors"> {this.props.errors.map((error) => (
+                        <li key={error.id}>{error.title}</li>
+                        ))}
+                    </ul> 
+                : null}
             </form>
         );
     }
