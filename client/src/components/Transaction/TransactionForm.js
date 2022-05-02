@@ -4,11 +4,13 @@ import { Form , Row, Col, Button } from 'react-bootstrap';
 
 
 const TransactionForm = (props)=>{
+    console.log(props);
     const [enteredDescription, setEnteredDescription] = useState('');
     const [enteredAmount, setEnteredAmount] = useState('');
     const [enteredDate, setEnteredDate] = useState('');
     const [enteredTitle, setEnteredTitle] = useState('');
     const [enteredType, setEnteredType] = useState('Expense');
+    const [enteredCategory, setEnteredCategory]=useState('');
     const [image, setImage] = useState('');
     const [url, setUrl] = useState('');
 
@@ -43,12 +45,15 @@ const TransactionForm = (props)=>{
         setAmountIsValid(true);
 
         const transactionData = {
+            transactions:[{
             typeof: Number(enteredType),
             amount: Number(enteredAmount), 
             title: enteredTitle,
             description: enteredDescription,  
             receipt: url, 
-            date: new Date(enteredDate)
+            date: new Date(enteredDate),
+            category_id: "",
+            }],
         };
         props.onSaveTransactionData(transactionData);
         setEnteredDescription('');
@@ -75,7 +80,13 @@ const TransactionForm = (props)=>{
 
             <Col sm={2} className="my-1">
                 <label>Category</label>
-                <Form.Control type="Title" value={enteredTitle} />
+                <Form.Select value={enteredCategory} onChange={(e)=>setEnteredCategory(e.target.value)} required>
+                    {props.categories.map(category => {
+                        return (
+                            <option value={category.id}>{category.icon}{category.name}</option>
+                        )
+                    })}
+                </Form.Select>
             </Col>
             <Col sm={2} className="my-1">
                 <label>Title</label>
