@@ -18,7 +18,7 @@ class Category extends Component {
         const fetchCategories = () => {
             createRequest("/categories.json").then((response) => {
                 this.setState({categories: response.data});
-                setTimeout(fetchCategories, 5000);
+                // setTimeout(fetchCategories, 5000);
                 console.log(response)
             });
         };
