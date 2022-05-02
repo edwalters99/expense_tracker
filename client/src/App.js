@@ -8,6 +8,8 @@ import Transactions from './components/Transaction/Transactions';
 import Navigation from './components/Navigation';
 import Category from './components/Category/Category';
 import axios from 'axios';
+import NewTransaction from './components/Transaction/NewTransaction';
+// import TransactionsDisplay from './components/Transaction/TransactionsDisplay';
 
 function App() {
   const [user, setUser] = useState({});
@@ -90,7 +92,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navigation user={user.id}/>
+      <Navigation />
       {user.email ?
         (<>
           <h2>Welcome, {user.first_name}</h2>
@@ -104,8 +106,6 @@ function App() {
           <SignUp signUp={signUp} errors = {signupErrors}/>
         </>)
       }
-     
-
     </div>
 );
 }

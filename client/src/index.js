@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Category from './components/Category/Category';
 import Transactions from './components/Transaction/Transactions';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TransactionsDisplay from './components/Transaction/TransactionsDisplay';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,7 @@ root.render(
       <Routes>
         <Route path='/' element={<App />} />
         <Route path='categories' element={<Category />} />
-        <Route path="#transactions" element={<Transactions/>}/>
+        <Route path="transactions" element={<TransactionsDisplay/>}/>
       </Routes>
     </BrowserRouter>
 );
