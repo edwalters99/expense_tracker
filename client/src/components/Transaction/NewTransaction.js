@@ -13,8 +13,10 @@ const NewTransaction = (props) => {
         console.log(transactionData);
         axios.post(TRANSACTION_SERVER_URL, transactionData).then((reps)=>{
             props.onAddTransaction(transactionData);
+            console.log(transactionData);
         });
     }
+
     const startEditingHandler = () => {
         setIsEditing(true);
     }
