@@ -4,12 +4,6 @@ import { Form , Row, Col, Button } from 'react-bootstrap';
 import createRequest from '../../request';
 // import {CloudinaryContext} from 'cloudinary-react';
 
-const sampleCategoryList = [
-    {id: 1, 'name': "Groceries", 'icon': "https://placekitten.com/50/50"},
-    {id: 2, 'name': "Transport", 'icon': "https://placekitten.com/50/50"},
-    {id: 3, 'name': "Takeaways", 'icon': "https://placekitten.com/50/50"},
-    {id: 4, 'name': "Salary", 'icon': "https://placekitten.com/50/50"},
-]
 const TransactionForm = (props)=>{
     console.log(props);
     const [enteredDescription, setEnteredDescription] = useState('');
@@ -22,9 +16,12 @@ const TransactionForm = (props)=>{
     const [url, setUrl] = useState('');
     const [categoryList, setCategoryList] = useState([]); 
     //check validation
-    const [amountIsValid, setAmountIsValid] = useState(true);
+    const [formIsValid, setFormISValid] = useState(true);
 
-    const uploadImage =() => {
+
+    const uploadImage =(e) => {
+        setFormISValid(false);
+        const image = e.target.files[0];
         const data = new FormData();
         data.append('file', image)
         data.append('upload_preset', 'ese6jnd3')
@@ -36,14 +33,18 @@ const TransactionForm = (props)=>{
             resp.json()
         ).then(data => {
             setUrl(data.url);
-            console.log(data.url);
-        }).catch(err => console.log(err))
+            setFormISValid(true);
+            if (data.url){
+                setFormISValid(true);
+            }
+        })
     }
+    
+    
     const input = '/categories.json';
     useEffect(()=>{
         const fetchCategories = async() => { 
-            createRequest(input).then(reps=>reps.json()
-            ).then((data)=> {
+            createRequest(input).then((data)=> {
                 console.log(data);
                 setCategoryList(data);       
                 })
@@ -51,22 +52,20 @@ const TransactionForm = (props)=>{
         
         const timer = setTimeout(()=>{
             fetchCategories();
-        }, 5000);
+        }, 1000);
         return () => clearTimeout(timer);    
     }, [input]);
-    
 
     const submitHandler =(event) => {
         event.preventDefault();  
 
-        if (enteredAmount.trim()==="") {
-            setAmountIsValid(false);
-            return;
-        }
-        setAmountIsValid(true);
-
+        // if (enteredAmount.trim()==="") {
+        //     setAmountIsValid(false);
+        //     return;
+        // }
+        // setAmountIsValid(true);
+        console.log(url);
         const transactionData = {
-            transactions:[{
             type_of: enteredType,
             amount: enteredAmount, 
             title: enteredTitle,
@@ -74,18 +73,18 @@ const TransactionForm = (props)=>{
             receipt: url, 
             date: enteredDate,
             category_id: Number(enteredCategory),
-            }],
         };
         props.onSaveTransactionData(transactionData);
+        console.log(transactionData);
         setEnteredDescription('');
         setEnteredAmount('');
         setEnteredDate('');
+        setFormISValid(false);
     }
 
     return (
 
     <form onSubmit={submitHandler}>
-        {console.log("here is ",categoryList)}
         <Row className="align-items-center">
             <Col sm={2} className="my-1">
                 <label>Category</label>
@@ -119,7 +118,7 @@ const TransactionForm = (props)=>{
             <Col sm={2} className="my-1">
                 <label>Amount</label>
                 <Form.Control type="number" value={enteredAmount} min="0.01" step="0.01" onChange={(e) => setEnteredAmount(e.target.value)}/>
-                {!amountIsValid && <p className='error-text'>Please enter an amount </p>}
+                {/* {!amountIsValid && <p className='error-text'>Please enter an amount </p>} */}
             </Col>
 
             <Col sm={2} className="my-1">
@@ -128,11 +127,17 @@ const TransactionForm = (props)=>{
             </Col>
             <Col sm={2} className="my-1">
                 <label>Upload</label>
-                <Form.Control type="file" onChange={(e)=> setImage(e.target.files[0])}/>
+                <Form.Control type="file" onChange={uploadImage}/>
             </Col>
 
             <Col xs="auto" className='my-1'>
-                <Button type="submit" onClick={uploadImage}>Add</Button>
+                {formIsValid &&
+                    <Button type="submit">Add</Button>
+                }
+                {!formIsValid &&
+                    <Button type="submit" disabled>Uploading..</Button>
+                }
+                
                 <Button type="button" onClick={props.onCancel}>Cancel</Button>
             </Col>
             </Row>
