@@ -15,36 +15,24 @@ const TransactionForm = (props)=>{
     //check validation
     const [amountIsValid, setAmountIsValid] = useState(true);
 
-
-    const titleChangeHandler = (event)=> {
-        setEnteredTitle(event.target.value);
-    }
-
-    const descriptionChangeHandler = (event)=>{
-        setEnteredDescription(event.target.value);
-
-    }
- 
-    const amountChangeHandler = (event)=> {
-        setEnteredAmount(event.target.value);
-    }
-
-    const dateChangeHandler = (event) => {
-        setEnteredDate(event.target.value);
-    }
     const uploadImage =() => {
         const data = new FormData();
         data.append('file', image)
-        data.append('upload_preset', 'tutorial')
-        data.append("cloud_name", 'breellz')
+        data.append('upload_preset', 'ese6jnd3')
+        data.append("cloud_name", 'dgpwctfjt')
         fetch("https://api.cloudinary.com/v1_1/dgpwctfjt/image/upload",{
             method: 'post',
             body: data
-        }).then((resp) => resp.json()).then(data => {
-            setUrl(data.url)
-        })
-        console.log(url);
+        }).then(resp => 
+            resp.json()
+        ).then(data => {
+            setUrl(data.url);
+            console.log(data.url);
+        }).catch(err => console.log(err))
     }
+    
+
+
     const submitHandler =(event) => {
         event.preventDefault();  
 
@@ -54,12 +42,15 @@ const TransactionForm = (props)=>{
         }
         setAmountIsValid(true);
 
-        const expenseData = {
-            description: enteredDescription,   
-            amount: enteredAmount, 
+        const transactionData = {
+            typeof: Number(enteredType),
+            amount: Number(enteredAmount), 
+            title: enteredTitle,
+            description: enteredDescription,  
+            receipt: url, 
             date: new Date(enteredDate)
         };
-        props.onSaveExpenseData(expenseData);
+        props.onSaveTransactionData(transactionData);
         setEnteredDescription('');
         setEnteredAmount('');
         setEnteredDate('');
@@ -70,36 +61,36 @@ const TransactionForm = (props)=>{
         <Row className="align-items-center">
             <Col sm={2} className="my-1">
                 <label>Date</label>
-                <Form.Control  type="date" value={enteredDate} min="2021-01-01" max="2025-12-31" onChange={dateChangeHandler}/>
+                <Form.Control  type="date" value={enteredDate} min="2021-01-01" max="2025-12-31" onChange={(e)=> setEnteredDate(e.target.value)}/>
             </Col>
     
             <Col sm={2} className="my-1">
                 <label>Income/Expense</label>
                 <Form.Select value={enteredType} onChange={(e) => setEnteredType(e.target.value)} required>
                 <option value="">Select Type</option>
-                <option value="Expense">Expense</option>
-                <option value="Income">Income</option>
+                <option value="0">Expense</option>
+                <option value="1">Income</option>
                 </Form.Select>
             </Col>  
 
             <Col sm={2} className="my-1">
-                <label></label>
-                <Form.Control type="Title" value={enteredTitle} onChange={titleChangeHandler}/>
+                <label>Category</label>
+                <Form.Control type="Title" value={enteredTitle} />
             </Col>
             <Col sm={2} className="my-1">
                 <label>Title</label>
-                <Form.Control type="Title" value={enteredTitle} onChange={titleChangeHandler}/>
+                <Form.Control type="Title" value={enteredTitle} onChange={(e)=> setEnteredTitle(e.target.value)}/>
             </Col>
 
             <Col sm={2} className="my-1">
                 <label>Amount</label>
-                <Form.Control type="number" value={enteredAmount} min="0.01" step="0.01" onChange={amountChangeHandler}/>
+                <Form.Control type="number" value={enteredAmount} min="0.01" step="0.01" onChange={(e) => setEnteredAmount(e.target.value)}/>
                 {!amountIsValid && <p className='error-text'>Please enter an amount </p>}
             </Col>
 
             <Col sm={2} className="my-1">
                 <label>Description</label>
-                <Form.Control type="text" value={enteredDescription} onChange={descriptionChangeHandler}/>
+                <Form.Control type="text" value={enteredDescription} onChange={(e)=> setEnteredDescription(e.target.value)}/>
             </Col>
             <Col sm={2} className="my-1">
                 <label>Upload</label>

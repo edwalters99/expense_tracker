@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   # before deploy eliminate the access of the index
   skip_before_action :is_authorized, only: [:create, :login, :index]
+  include ErrorSerializer
   
   def user_profile
     render json: @user
@@ -22,9 +23,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(user_params)
-    render json: @user, status: :created
-  end
+    @user = User.new(user_params)
+    if @user.save
+      render json: @user, status: :created
+    else
+      render json: ErrorSerializer.serialize(@user.errors)
+    end  
+  end 
 
   def login
     @user = User.find_by(email: params[:user][:email])
