@@ -4,28 +4,22 @@ import './NewTransaction.css';
 import axios from 'axios';
 
 const NewTransaction = (props) => {
-    console.log(props);
     const [isEditing, setIsEditing] = useState(false);
-
-    console.log(props);
-    const TRANSACTION_SERVER_URL = `http://localhost:3000/users.json`;
     
     const saveTransactionDataHandler = (transactionData) => {
         setIsEditing(false);
-        console.log(transactionData);
         let token = localStorage.getItem('token');
         fetch('http://localhost:3000/transactions.json', {
             method: 'POST',
-            headers: {'Authorization': `Bearer ${token}`},
-            body: transactionData,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            //body: JSON.stringify({"transaction": {"type_of": 'expense', amount: 11, title: 'test'}}),
+            body: JSON.stringify({"transaction": transactionData}),
         }).then(()=>{
-            console.log('work');
+            props.onAddTransaction(transactionData);
         })
-        // axios.post(TRANSACTION_SERVER_URL, transactionData).then((reps)=>{
-        //     props.onAddTransaction(reps);
-        //     console.log(transactionData);
-        //     console.log(reps);
-        // });
     }
 
     const startEditingHandler = () => {

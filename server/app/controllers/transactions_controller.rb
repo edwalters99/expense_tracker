@@ -1,18 +1,14 @@
 class TransactionsController < ApplicationController
-    skip_before_action :is_authorized, only: [:create, :login, :index, :show]
-
+    skip_before_action :is_authorized, only: [:create,  :index]
     def index
         transactions = Transaction.all
         render json: transactions
     end
   
     def create
-        transaction = Transaction.new(transaction_params)
-        if transaction.save
-            render json: @transaction, status: :created
-        else
-            render json: ErrorSerializer.serialize(transaction.errors)
-        end  
+        puts params
+        @transaction = Transaction.create(transaction_params)
+        render json: @transaction, status: :created
     end
 
     # # PATCH/PUT /transactions/1 or /transactions/1.json
