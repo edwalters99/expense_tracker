@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import CategoryList from './CategoryList';
 import createRequest from '../../request';
+import Navigation from '../Navigation';
 
 const SERVER_URL = 'http://localhost:3000/categories.json';
 
@@ -31,6 +32,7 @@ class Category extends Component {
     render() {
         return (
             <div>
+                <Navigation />
                 <CategoryList categories={ this.state.categories }/>
                 hey
             </div>
