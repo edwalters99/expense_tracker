@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import axios from 'axios';
+import React, {useState, useEffect} from 'react';
 import { Form , Row, Col, Button } from 'react-bootstrap';
+import createRequest from '../../request';
 // import {CloudinaryContext} from 'cloudinary-react';
 
 
@@ -13,7 +15,7 @@ const TransactionForm = (props)=>{
     const [enteredCategory, setEnteredCategory]=useState('');
     const [image, setImage] = useState('');
     const [url, setUrl] = useState('');
-
+    // const [categoryList, setCategoryList] = useState(''); 
     //check validation
     const [amountIsValid, setAmountIsValid] = useState(true);
 
@@ -34,6 +36,12 @@ const TransactionForm = (props)=>{
     }
     
 
+    // createRequest().get('/categories.json').then(reps=>{
+    //     setCategoryList(reps.data);
+    //     console.log(reps.data);
+    // })
+    // console.log(categoryList);
+    
 
     const submitHandler =(event) => {
         event.preventDefault();  
@@ -46,13 +54,13 @@ const TransactionForm = (props)=>{
 
         const transactionData = {
             transactions:[{
-            typeof: Number(enteredType),
-            amount: Number(enteredAmount), 
+            type_of: enteredType,
+            amount: enteredAmount, 
             title: enteredTitle,
             description: enteredDescription,  
             receipt: url, 
-            date: new Date(enteredDate),
-            category_id: "",
+            date: enteredDate,
+            category_id: Number(enteredCategory),
             }],
         };
         props.onSaveTransactionData(transactionData);
@@ -65,6 +73,18 @@ const TransactionForm = (props)=>{
     <form onSubmit={submitHandler}>
         <Row className="align-items-center">
             <Col sm={2} className="my-1">
+                <label>Category</label>
+                <Form.Select value={enteredCategory} onChange={(e)=>setEnteredCategory(e.target.value)}>
+                    {/* {categoryList.map(category => {
+                        return (
+                            <option value={category.id}>{category.icon}{category.name}</option>
+                        )
+                    })} */}
+                </Form.Select>
+            </Col>
+        </Row>
+        <Row className="align-items-center">
+            <Col sm={2} className="my-1">
                 <label>Date</label>
                 <Form.Control  type="date" value={enteredDate} min="2021-01-01" max="2025-12-31" onChange={(e)=> setEnteredDate(e.target.value)}/>
             </Col>
@@ -73,21 +93,11 @@ const TransactionForm = (props)=>{
                 <label>Income/Expense</label>
                 <Form.Select value={enteredType} onChange={(e) => setEnteredType(e.target.value)} required>
                 <option value="">Select Type</option>
-                <option value="0">Expense</option>
-                <option value="1">Income</option>
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
                 </Form.Select>
             </Col>  
 
-            <Col sm={2} className="my-1">
-                <label>Category</label>
-                <Form.Select value={enteredCategory} onChange={(e)=>setEnteredCategory(e.target.value)} required>
-                    {props.categories.map(category => {
-                        return (
-                            <option value={category.id}>{category.icon}{category.name}</option>
-                        )
-                    })}
-                </Form.Select>
-            </Col>
             <Col sm={2} className="my-1">
                 <label>Title</label>
                 <Form.Control type="Title" value={enteredTitle} onChange={(e)=> setEnteredTitle(e.target.value)}/>
