@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const CategoryList = (props) => {
   return (
@@ -8,7 +8,7 @@ const CategoryList = (props) => {
         </p>
         { props.categories.map((c) => <p key={ c.id }>{ c.name }<img src={ c.icon } ></img></p>)}
     </div>
-  )
+  );
 }
 
 export default CategoryList

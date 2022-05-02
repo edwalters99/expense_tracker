@@ -4,25 +4,31 @@ import CategoryList from './CategoryList';
 
 const SERVER_URL = 'http://localhost:3000/categories.json';
 
+
 class Category extends Component {
     constructor() {
         super();
         this.state = {
-            categories: []
+            categories: [
+                {id: 1, name: 'Grocery', icon: 'https://placekitten.com/50/50'}, 
+                {id: 2, name: 'Medicine', icon: 'https://placekitten.com/50/50'},
+            ]
         };
     }
+    
+    // componentDidMount() {
 
-    componentDidMount() {
+
         
-        const fetchCategories = () => {
-            axios(SERVER_URL).then((response) => {
-                this.setState({categories: response.data});
-                setTimeout(fetchCategories, 5000);
-                console.log(response)
-            });
-        };
-        fetchCategories();
-    }
+    //     const fetchCategories = () => {
+    //         axios(SERVER_URL).then((response) => {
+    //             this.setState({categories: response.data});
+    //             setTimeout(fetchCategories, 5000);
+    //             console.log(response)
+    //         });
+    //     };
+    //     fetchCategories();
+    // }
 
     render() {
         return (
@@ -32,8 +38,6 @@ class Category extends Component {
             </div>
         );
     }
-
-
 }
 
 export default Category;

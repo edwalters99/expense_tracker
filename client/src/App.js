@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import './App.css';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import Category from './components/Category/Category';
 import NewTransaction from './components/Transaction/NewTransaction';
 import Transactions from './components/Transaction/Transactions';
 import Navigation from './components/Navigation';
+import Category from './components/Category/Category';
 import axios from 'axios';
 
 function App() {
@@ -116,9 +116,8 @@ function App() {
       
       <NewTransaction onAddTransaction={addTransactionHandler}/>
       <Transactions items={transactions}/>
+      <Category />
       
-      
-      <Link to="/categories">Categories</Link>
 
     </div>
 );
