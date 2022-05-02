@@ -5,3 +5,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :transactions, :only => [:new, :create, :index, :show]
 end
+
+
+
+
