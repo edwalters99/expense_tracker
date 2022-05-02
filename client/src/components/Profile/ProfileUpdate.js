@@ -1,26 +1,43 @@
 import React, { Component } from 'react';
+import createRequest from '../../request';
 import { Form, Button } from 'react-bootstrap';
 
 class ProfileUpdate extends Component {
     constructor() {
         super();
         this.state = {
-            users: [{
-                id: 1,
-                first_name: 'K',
-                last_name: 'DC',
-                email: 'kk@ga.co',
-                password: 'chicken'
-            }
-        ]
+            users: []
         };
-        this._handleFirstName = this._handleFirstName.bind(this)
+        this._handleFirstName = this._handleFirstName.bind(this);
+        this.saveProfile = this.saveProfile.bind(this)
+    }
+
+    componentDidMount() {
+                
+        const fetchUser = () => {
+            createRequest("/profile.json").then((response) => {
+                console.log(response)
+ 
+                this.setState({users: response});
+
+                // setTimeout(fetchCategories, 5000);
+            });
+        };
+        fetchUser();
     }
     
 
     _handleFirstName(event) {
         console.log(event.target.value)
         this.setState({ users: event.target.value})
+    }
+
+    saveProfile(event) {
+        event.preventDefault();
+        createRequest("/profile.json").then((response) => {
+            console.log(response)
+            this.setState({users: response}) 
+        });    
     }
     
 
@@ -32,18 +49,18 @@ class ProfileUpdate extends Component {
                 <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>First Name</Form.Label>
-                    <Form.Control onChange={ this._handleFirstName } placeholder={this.state.users[0].first_name} />
+                    <Form.Control onChange={ this._handleFirstName } value={this.state.users.first_name} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Last Name</Form.Label>
-                    <Form.Control placeholder={this.state.users[0].last_name} />
+                    <Form.Control value={this.state.users.last_name} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder={this.state.users[0].email} />
+                    <Form.Control type="email" value={this.state.users.email} />
                 </Form.Group>
 
-                <Button variant="secondary" type="submit" onClick={ this._handleInput }>
+                <Button onSubmit={ this.saveProfile} variant="secondary" type="submit" onClick={ this._handleInput }>
                     Submit
                 </Button>
                 </Form>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # before deploy eliminate the access of the index
-  skip_before_action :is_authorized, only: [:create, :login, :index, :show]
+  skip_before_action :is_authorized, only: [:create, :login, :index]
   include ErrorSerializer
   
   def user_profile
