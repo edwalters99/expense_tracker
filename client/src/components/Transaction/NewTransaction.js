@@ -5,8 +5,10 @@ import axios from 'axios';
 
 const NewTransaction = (props) => {
     const [isEditing, setIsEditing] = useState(false);
-
-    const TRANSACTION_SERVER_URL = "http://localhost:3000/transactions.json";
+    const [user, setUser] = useState("");
+    console.log(props);
+    const TRANSACTION_SERVER_URL = `http://localhost:3000/users/${props.user}.json`;
+    const CATEGORIES_SERVER_URL = 'http://localhost:3000/categories.json';
 
     const saveTransactionDataHandler = (transactionData) => {
         setIsEditing(false);
@@ -32,6 +34,7 @@ const NewTransaction = (props) => {
         )}
         {isEditing && (
             <TransactionForm 
+                categories={props.user.categories}
                 onSaveTransactionData={saveTransactionDataHandler} 
                 onCancel={stopEditingHandler}
             />
