@@ -9,8 +9,6 @@ const NewTransaction = (props) => {
     const saveTransactionDataHandler = (transactionData) => {
         setIsEditing(false);
         let token = localStorage.getItem('token');
-        console.log("xiaket", transactionData);
-        console.log(token);
         fetch('http://localhost:3000/transactions.json', {
             method: 'POST',
             headers: {
@@ -22,11 +20,6 @@ const NewTransaction = (props) => {
         }).then(()=>{
             props.onAddTransaction(transactionData);
         })
-        // axios.post(TRANSACTION_SERVER_URL, transactionData).then((reps)=>{
-        //     props.onAddTransaction(reps);
-        //     console.log(transactionData);
-        //     console.log(reps);
-        // });
     }
 
     const startEditingHandler = () => {
