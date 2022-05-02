@@ -1,39 +1,76 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 
-class SignIn extends Component {
-    // doesn't need constructor because doesnt use the inicial state
-    state = { 
+function SignIn(props) {
+
+    const [state, setState] = useState({
         email: '',
-        password: ''
-    }
+        password: '',
+    })
 
     // dynamic function
-    handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value})
+    const handleChange = (event) => {
+        // setState({[event.target.name]: event.target.value})
+        setState((prev) => ({ ...prev, [event.target.name]: event.target.value }));
     }
 
-    handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault()
-        this.props.signIn(this.state)
+        props.signIn(state)
     }
 
-    render() {
-        return(
-            <form onSubmit={this.handleSubmit}>
-                <h1>Sign In</h1>
+    return (
+        <form onSubmit={handleSubmit}>
+            <h1>Sign In</h1>
 
-                <label>Email: </label>
-                <input name='email' value={this.state.email} onChange={this.handleChange} />
+            <label>Email: </label>
+            <input name='email' value={state.email} onChange={handleChange} />
 
-                <label>Password: </label>
-                <input type='password' name='password' value={this.state.password} onChange={this.handleChange} />
+            <label>Password: </label>
+            <input type='password' name='password' value={state.password} onChange={handleChange} />
 
-                {this.props.error ? <p>{this.props.error}</p> : null}
+            {props.error ? <p>{props.error}</p> : null}
 
-                <input type='submit' value='Sign In' />
-            </form>
-        );
-    }
+            <input type='submit' value='Sign In' />
+            
+        </form>
+    )
 }
+export default SignIn
 
-export default SignIn;
+// class SignIn extends Component {
+//     // doesn't need constructor because doesnt use the inicial state
+//     state = { 
+//         email: '',
+//         password: ''
+//     }
+
+//     // dynamic function
+//     handleChange = (event) => {
+//         this.setState({[event.target.name]: event.target.value})
+//     }
+
+//     handleSubmit = (event) => {
+//         event.preventDefault()
+//         this.props.signIn(this.state)
+//     }
+
+//     render() {
+//         return(
+//             <form onSubmit={this.handleSubmit}>
+//                 <h1>Sign In</h1>
+
+//                 <label>Email: </label>
+//                 <input name='email' value={this.state.email} onChange={this.handleChange} />
+
+//                 <label>Password: </label>
+//                 <input type='password' name='password' value={this.state.password} onChange={this.handleChange} />
+
+//                 {this.props.error ? <p>{this.props.error}</p> : null}
+
+//                 <input type='submit' value='Sign In' />
+//             </form>
+//         );
+//     }
+// }
+
+// export default SignIn
