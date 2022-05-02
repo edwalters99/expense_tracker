@@ -1,10 +1,15 @@
 class CategoriesController < ApplicationController
     before_action :set_category, only: %i[ show edit update destroy ]
-  
+
     # GET /categories or /categories.json
     def index
-      @categories = @user.categories.order('id DESC')
-      render json: @categories
+      categories = Category.all
+      render json: categories
+    end
+
+    def user_index
+      categories = @user.categories.order('id DESC')
+      render json: categories
     end
   
     # GET /categories/1 or /categories/1.json

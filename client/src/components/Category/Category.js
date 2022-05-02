@@ -3,7 +3,7 @@ import axios from 'axios';
 import CategoryList from './CategoryList';
 import createRequest from '../../request';
 
-const SERVER_URL = 'http://localhost:3000/categories.json';
+// const SERVER_URL = 'http://localhost:3000/categories.json';
 
 class Category extends Component {
     constructor() {
