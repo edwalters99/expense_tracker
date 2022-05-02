@@ -1,10 +1,15 @@
-import axios from 'axios';
+
 import React, {useState, useEffect} from 'react';
 import { Form , Row, Col, Button } from 'react-bootstrap';
 import createRequest from '../../request';
 // import {CloudinaryContext} from 'cloudinary-react';
 
-
+const sampleCategoryList = [
+    {id: 1, 'name': "Groceries", 'icon': "https://placekitten.com/50/50"},
+    {id: 2, 'name': "Transport", 'icon': "https://placekitten.com/50/50"},
+    {id: 3, 'name': "Takeaways", 'icon': "https://placekitten.com/50/50"},
+    {id: 4, 'name': "Salary", 'icon': "https://placekitten.com/50/50"},
+]
 const TransactionForm = (props)=>{
     console.log(props);
     const [enteredDescription, setEnteredDescription] = useState('');
@@ -15,7 +20,7 @@ const TransactionForm = (props)=>{
     const [enteredCategory, setEnteredCategory]=useState('');
     const [image, setImage] = useState('');
     const [url, setUrl] = useState('');
-    // const [categoryList, setCategoryList] = useState(''); 
+    const [categoryList, setCategoryList] = useState([]); 
     //check validation
     const [amountIsValid, setAmountIsValid] = useState(true);
 
@@ -34,13 +39,21 @@ const TransactionForm = (props)=>{
             console.log(data.url);
         }).catch(err => console.log(err))
     }
-    
-
-    // createRequest().get('/categories.json').then(reps=>{
-    //     setCategoryList(reps.data);
-    //     console.log(reps.data);
-    // })
-    // console.log(categoryList);
+    const input = '/categories.json';
+    useEffect(()=>{
+        const fetchCategories = async() => { 
+            createRequest(input).then(reps=>reps.json()
+            ).then((data)=> {
+                console.log(data);
+                setCategoryList(data);       
+                })
+        }
+        
+        const timer = setTimeout(()=>{
+            fetchCategories();
+        }, 5000);
+        return () => clearTimeout(timer);    
+    }, [input]);
     
 
     const submitHandler =(event) => {
@@ -70,23 +83,23 @@ const TransactionForm = (props)=>{
     }
 
     return (
+
     <form onSubmit={submitHandler}>
+        {console.log("here is ",categoryList)}
         <Row className="align-items-center">
             <Col sm={2} className="my-1">
                 <label>Category</label>
                 <Form.Select value={enteredCategory} onChange={(e)=>setEnteredCategory(e.target.value)}>
-                    {/* {categoryList.map(category => {
-                        return (
-                            <option value={category.id}>{category.icon}{category.name}</option>
-                        )
-                    })} */}
+                {categoryList.map(category => (
+                        <option value={category.id}>{category.name}</option>
+                ))}
                 </Form.Select>
             </Col>
         </Row>
         <Row className="align-items-center">
             <Col sm={2} className="my-1">
                 <label>Date</label>
-                <Form.Control  type="date" value={enteredDate} min="2021-01-01" max="2025-12-31" onChange={(e)=> setEnteredDate(e.target.value)}/>
+                <Form.Control  type="date" value={enteredDate} min="2021-01-01" max={new Date()} onChange={(e)=> setEnteredDate(e.target.value)}/>
             </Col>
     
             <Col sm={2} className="my-1">
