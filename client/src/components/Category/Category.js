@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CategoryList from './CategoryList';
+import createRequest from '../../request';
 
 const SERVER_URL = 'http://localhost:3000/categories.json';
 
@@ -20,15 +21,15 @@ class Category extends Component {
 
 
         
-    //     const fetchCategories = () => {
-    //         axios(SERVER_URL).then((response) => {
-    //             this.setState({categories: response.data});
-    //             setTimeout(fetchCategories, 5000);
-    //             console.log(response)
-    //         });
-    //     };
-    //     fetchCategories();
-    // }
+        const fetchCategories = () => {
+            createRequest("/categories.json").then((response) => {
+                this.setState({categories: response.data});
+                setTimeout(fetchCategories, 5000);
+                console.log(response)
+            });
+        };
+        fetchCategories();
+    }
 
     render() {
         return (
