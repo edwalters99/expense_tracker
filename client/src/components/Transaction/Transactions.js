@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
 import TransactionList from './TransactionList';
 import TransactionsFilter from './TransactionsFilter';
+import NewTransaction from './NewTransaction';
 import Card from '../Card'
 
 
 const Transactions = (props) => {
+    const [transactions, setTransactions] = useState();
     const current = new Date();
     const currentMonth = current.getMonth();
     const [filteredMonth, setFilteredMonth] = useState(currentMonth);
-  
+
+    const addTransactionHandler = (transaction) => {
+      setTransactions((prevTransactions) => {
+        return [transaction, ...prevTransactions];
+      });
+    }
+
     const filterChangeHandler = (selectedMonth) => {
         setFilteredMonth(selectedMonth);
         console.log(selectedMonth);
@@ -24,6 +32,7 @@ const Transactions = (props) => {
   
     return (
       <div>
+        <NewTransaction onAddTransaction={addTransactionHandler}/>
         <Card className='Transactions'>
           <TransactionsFilter
             selected={filteredMonth}
