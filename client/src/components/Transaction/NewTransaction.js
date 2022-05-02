@@ -5,18 +5,21 @@ import axios from 'axios';
 
 const NewTransaction = (props) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [user, setUser] = useState("");
-    console.log(props);
-    const TRANSACTION_SERVER_URL = `http://localhost:3000/users/${props.user}.json`;
-    const CATEGORIES_SERVER_URL = 'http://localhost:3000/categories.json';
-
+    
     const saveTransactionDataHandler = (transactionData) => {
         setIsEditing(false);
-        console.log(transactionData);
-        axios.post(TRANSACTION_SERVER_URL, transactionData).then((reps)=>{
+        let token = localStorage.getItem('token');
+        fetch('http://localhost:3000/transactions.json', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            //body: JSON.stringify({"transaction": {"type_of": 'expense', amount: 11, title: 'test'}}),
+            body: JSON.stringify({"transaction": transactionData}),
+        }).then(()=>{
             props.onAddTransaction(transactionData);
-            console.log(transactionData);
-        });
+        })
     }
 
     const startEditingHandler = () => {
@@ -34,7 +37,6 @@ const NewTransaction = (props) => {
         )}
         {isEditing && (
             <TransactionForm 
-                categories={props.user.categories}
                 onSaveTransactionData={saveTransactionDataHandler} 
                 onCancel={stopEditingHandler}
             />

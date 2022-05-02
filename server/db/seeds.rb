@@ -62,7 +62,7 @@ c4.transactions << t4
 c2.transactions << t5
 
 # assign transactions to users
-u1.transactions << t1
+u1.transactions << t1 << t2
 u2.transactions << t2
 u3.transactions << t3 << t4 << t5
 

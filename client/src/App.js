@@ -1,23 +1,21 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import './App.css';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import NewTransaction from './components/Transaction/NewTransaction';
 import Transactions from './components/Transaction/Transactions';
 import Navigation from './components/Navigation';
 import Category from './components/Category/Category';
 import axios from 'axios';
+import NewTransaction from './components/Transaction/NewTransaction';
+// import TransactionsDisplay from './components/Transaction/TransactionsDisplay';
 
 function App() {
   const [user, setUser] = useState({});
   const [signinError, setSigninError] = useState('');
   const [signupErrors, setSignupErrors] = useState([]);
 
-
-
-  const [transactions, setTransactions] = useState(sample_transactions);
 
   function signUp (user) {
     fetch('http://localhost:3000/users', {
@@ -91,11 +89,6 @@ function App() {
     }
   }, []);
 
-  const addTransactionHandler = (transaction) => {
-    setTransactions((prevTransactions) => {
-      return [transaction, ...prevTransactions];
-    });
-  }
 
   return (
     <div className="App">
@@ -112,54 +105,7 @@ function App() {
           <SignUp signUp={signUp} errors = {signupErrors}/>
         </>)
       }
-      
-      <NewTransaction onAddTransaction={addTransactionHandler}/>
-      <Transactions items={transactions}/>
-      
-
     </div>
 );
 }
 export default App;
-
-const sample_transactions = [
-  {
-    id: '1',
-    title: 'Toilet Paper',
-    type: 'Expense',
-    description: '250 rolls pack',
-    amount: 24.12,
-    date: new Date(2022, 2, 14),
-  },
-  { 
-      id: '2', 
-      title: 'New TV', 
-      type: 'Expense',
-      description: 'Sony 4K Ultra HD',
-      amount: 799.49, 
-      date: new Date(2022, 2, 28) },
-  {
-    id: '3',
-    title: 'Car Insurance',
-    type: 'Expense',
-    description: 'yearly payment',
-    amount: 294.67,
-    date: new Date(2022, 4, 1),
-  },
-  {
-    id: '4',
-    title: 'New Chair',
-    type: 'Expense',
-    description: 'good guy special sale',
-    amount: 450.00,
-    date: new Date(2022, 5, 1),
-  },
-  {
-    id: '5',
-    title: 'Salary',
-    type: 'Income',
-    description: 'weekly salary',
-    amount: 4000.00,
-    date: new Date(2022, 1, 30),
-  },
-];
