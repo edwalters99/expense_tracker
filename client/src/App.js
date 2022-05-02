@@ -99,7 +99,6 @@ function App() {
 
   return (
     <div className="App">
-      <Navigation />
       {user.email ?
         (<>
           <h2>Welcome, {user.first_name}</h2>

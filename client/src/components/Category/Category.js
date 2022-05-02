@@ -11,16 +11,14 @@ class Category extends Component {
         super();
         this.state = {
             categories: [
-                {id: 1, name: 'Grocery', icon: 'https://placekitten.com/50/50'}, 
-                {id: 2, name: 'Medicine', icon: 'https://placekitten.com/50/50'},
+                // {id: 1, name: 'Grocery', icon: 'https://placekitten.com/50/50'}, 
+                // {id: 2, name: 'Medicine', icon: 'https://placekitten.com/50/50'},
             ]
         };
     }
     
-    // componentDidMount() {
-
-
-        
+    componentDidMount() {
+                
         const fetchCategories = () => {
             createRequest("/categories.json").then((response) => {
                 this.setState({categories: response.data});
