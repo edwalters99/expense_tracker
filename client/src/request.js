@@ -25,6 +25,7 @@ function createRequest(url) {
           'Authorization': `Bearer ${token}`
         }
     })
+    .then(response => response.json())
     return instance
 }
 
