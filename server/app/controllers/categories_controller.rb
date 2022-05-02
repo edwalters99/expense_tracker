@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   
     # GET /categories or /categories.json
     def index
-      @categories = Category.order('id DESC')
+      @categories = @user.categories.order('id DESC')
       render json: @categories
     end
   
