@@ -17,7 +17,7 @@ class Category extends Component {
     componentDidMount() {
         
         const fetchCategories = () => {
-            createRequest("/categories.json").then((response) => {
+            createRequest("/user_categories.json").then((response) => {
 
  
                 this.setState({categories: response});

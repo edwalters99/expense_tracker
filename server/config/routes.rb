@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get '/user_categories' => 'categories#user_index'
   
   resources :categories, :only => [:index]
-  resources :transactions, :only => [:new, :create, :index, :show]
+  resources :transactions, :only => [:index, :create, :update, :destroy]
 
 end
 
