@@ -12,7 +12,6 @@ const TransactionForm = (props)=>{
     const [enteredTitle, setEnteredTitle] = useState('');
     const [enteredType, setEnteredType] = useState('Expense');
     const [enteredCategory, setEnteredCategory]=useState('');
-    const [image, setImage] = useState('');
     const [url, setUrl] = useState('');
     const [categoryList, setCategoryList] = useState([]); 
     //check validation
@@ -64,7 +63,6 @@ const TransactionForm = (props)=>{
         //     return;
         // }
         // setAmountIsValid(true);
-        console.log(url);
         const transactionData = {
             type_of: enteredType,
             amount: enteredAmount, 
@@ -75,7 +73,6 @@ const TransactionForm = (props)=>{
             category_id: Number(enteredCategory),
         };
         props.onSaveTransactionData(transactionData);
-        console.log(transactionData);
         setEnteredDescription('');
         setEnteredAmount('');
         setEnteredDate('');
