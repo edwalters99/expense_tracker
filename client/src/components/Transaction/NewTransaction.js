@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import TransactionForm from './TransactionForm';
 import './NewTransaction.css';
-import axios from 'axios';
 
 const NewTransaction = (props) => {
     const [isEditing, setIsEditing] = useState(false);
