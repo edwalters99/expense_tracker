@@ -9,7 +9,6 @@ import Profile  from './components/Profile/Profile';
 import ProfileUpdate from './components/Profile/ProfileUpdate';
 import Changepassword from './components/Profile/Changepassword';
 import Navigation from './components/Navigation';
-import Changepassword from './components/Profile/Changepassword';
 import Transactions from './components/Transaction/Transactions';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TransactionsDisplay from './components/Transaction/TransactionsDisplay';

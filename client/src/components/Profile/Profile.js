@@ -26,10 +26,7 @@ const Profile = (props) => {
                 <span className='changepassword'>
                     <Button className='btn-changepassword' variant="secondary" href="/profile/changepassword">Change Password</Button> 
                 </span>
-<<<<<<< HEAD
-=======
                 
->>>>>>> c703e7d88e30d68c4b1cad481e02ee038ed6e2cf
             </div>
     )
 }
