@@ -82,22 +82,7 @@ const TransactionForm = (props)=>{
 
     <form onSubmit={submitHandler}>
         <Row className="align-items-center">
-            <Col sm={2} className="my-1">
-                <label>Category</label>
-                <Form.Select value={enteredCategory} onChange={(e)=>setEnteredCategory(e.target.value)}>
-                {categoryList.map(category => (
-                        <option value={category.id}>{category.name}</option>
-                ))}
-                </Form.Select>
-            </Col>
-        </Row>
-        <Row className="align-items-center">
-            <Col sm={2} className="my-1">
-                <label>Date</label>
-                <Form.Control  type="date" value={enteredDate} min="2021-01-01" max={new Date()} onChange={(e)=> setEnteredDate(e.target.value)}/>
-            </Col>
-    
-            <Col sm={2} className="my-1">
+            <Col sm={4} className="my-1">
                 <label>Income/Expense</label>
                 <Form.Select value={enteredType} onChange={(e) => setEnteredType(e.target.value)} required>
                 <option value="">Select Type</option>
@@ -105,35 +90,52 @@ const TransactionForm = (props)=>{
                 <option value="income">Income</option>
                 </Form.Select>
             </Col>  
+        </Row>
+        <Row className="align-items-center">
+            <Col sm={3} className="my-1">
+                <label>Date</label>
+                <Form.Control  type="date" value={enteredDate} min="2021-01-01" max={new Date()} onChange={(e)=> setEnteredDate(e.target.value)}/>
+            </Col>
+    
+            <Col sm={3} className="my-1">
+                <label>Category</label>
+                <Form.Select value={enteredCategory} onChange={(e)=>setEnteredCategory(e.target.value)}>
+                {categoryList.map(category => (
+                        <option value={category.id}>&#129409; {category.name}</option>
+                ))}
+                </Form.Select>
+            </Col>
 
-            <Col sm={2} className="my-1">
+            <Col sm={3} className="my-1">
                 <label>Title</label>
                 <Form.Control type="Title" value={enteredTitle} onChange={(e)=> setEnteredTitle(e.target.value)}/>
             </Col>
 
             <Col sm={2} className="my-1">
                 <label>Amount</label>
-                <Form.Control type="number" value={enteredAmount} min="0.01" step="0.01" onChange={(e) => setEnteredAmount(e.target.value)}/>
+                <Form.Control type="number" value={enteredAmount} min="0.01" step="0.01" onChange={(e) => setEnteredAmount(e.target.value)} placeholder="$"/>
                 {/* {!amountIsValid && <p className='error-text'>Please enter an amount </p>} */}
             </Col>
-
-            <Col sm={2} className="my-1">
+        </Row>    
+        <Row className="align-items-center">
+            <Col sm={6} className="my-1">
                 <label>Description</label>
                 <Form.Control type="text" value={enteredDescription} onChange={(e)=> setEnteredDescription(e.target.value)}/>
             </Col>
-            <Col sm={2} className="my-1">
+            <Col sm={3} className="my-1">
                 <label>Upload</label>
                 <Form.Control type="file" onChange={uploadImage}/>
             </Col>
-
-            <Col xs="auto" className='my-1'>
+        
+            <Col sm={1} className='my-1'>
                 {formIsValid &&
                     <Button type="submit">Add</Button>
                 }
                 {!formIsValid &&
                     <Button type="submit" disabled>Uploading..</Button>
                 }
-                
+            </Col>
+            <Col sm={1} className='my-1'>
                 <Button type="button" onClick={props.onCancel}>Cancel</Button>
             </Col>
             </Row>
