@@ -31,6 +31,17 @@ class UsersController < ApplicationController
     end  
   end 
 
+  def update
+    # @user.update(user_params)
+    # render json: @user, status: :created
+
+    if @user.update(user_params)
+      render json: @user, status: :created
+    else
+      render json: ErrorSerializer.serialize(@user.errors)
+    end 
+  end
+
   def login
     @user = User.find_by(email: params[:user][:email])
 
