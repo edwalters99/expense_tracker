@@ -24,7 +24,6 @@ root.render(
         <Route path='profile/edit' element={<ProfileUpdate />} />
         <Route path='profile/changepassword' element={<Changepassword />} />
         <Route path="transactions" element={<TransactionsDisplay/>}/>
-        
       </Routes>
     </BrowserRouter>
 );
