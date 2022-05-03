@@ -24,6 +24,8 @@ class ApplicationController < ActionController::Base
         end
 
         if user_id
+            puts "NAME" 
+            puts user_id
             @user = User.find(user_id)
         else
             nil

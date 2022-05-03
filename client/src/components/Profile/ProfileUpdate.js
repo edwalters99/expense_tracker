@@ -45,7 +45,7 @@ function ProfileUpdate(props) {
     
     const saveProfile = event => {
         console.log('test saveProfile');
-        console.log( userDetails );
+        console.log( 'userDetails:', userDetails );
         let token = localStorage.getItem('token');
         fetch('http://localhost:3000/profile_update.json?', {
             method: 'PATCH',

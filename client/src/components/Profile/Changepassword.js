@@ -12,8 +12,6 @@ function Changepassword() {
         password_confirmation: ''
     })
 
-    const [errors, setErrors] = useState([]);
-
     useEffect( () => {
         console.log('fetching user')
         fetchUser()
@@ -25,6 +23,8 @@ function Changepassword() {
             setUserDetails(response);
         });
     };
+    
+    const [errors, setErrors] = useState([]);
 
     const handleChange = (event) => {
         setUserDetails((prev) => ({ ...prev, [event.target.name]: event.target.value }));
@@ -38,9 +38,11 @@ function Changepassword() {
     const savePassword = event => {
         console.log('test saveProfile');
         console.log('UserDetails', userDetails );
+
+        // const updatedUser = {...userDetails, id: 71}
         let token = localStorage.getItem('token');
         fetch('http://localhost:3000/profile_update.json?', {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'

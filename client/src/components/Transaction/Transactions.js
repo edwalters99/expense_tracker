@@ -7,7 +7,6 @@ import createRequest from '../../request';
 
 
 const Transactions = (props) => {
-    
     const current = new Date();
     const currentMonth = current.getMonth();
     const [filteredMonth, setFilteredMonth] = useState(currentMonth);
@@ -21,16 +20,14 @@ const Transactions = (props) => {
         setFilteredMonth(selectedMonth);
         // console.log(selectedMonth);
     };
-  
+
     const filteredTransactions = props.items.filter((transaction) => {
-        if(filteredMonth === "-"){
-          return new Date(transaction.date).getFullYear().toString()==='2022';
-        } else {
-          // console.log(transaction)
-          // console.log(new Date(transaction.date).getMonth());
-          return new Date(transaction.date).getMonth().toString()===filteredMonth;
-        }
-    });
+      if (filteredMonth === "-") {
+        return new Date(transaction.date).getFullYear().toString()==='2022';
+      } else {
+        return new Date(transaction.date).getMonth().toString()===filteredMonth;
+      }
+  });
   
     return (
       <div>
@@ -40,7 +37,7 @@ const Transactions = (props) => {
                 selected={filteredMonth}
                 onChangeFilter={filterChangeHandler}
               />
-              <TransactionList items={filteredTransactions} />
+              <TransactionList items={filteredTransactions} onDeleteTransaction={props.onDeleteTransaction} />
             </Card>
       </div>
     );

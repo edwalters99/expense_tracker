@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Category from './components/Category/Category';
 import Profile  from './components/Profile/Profile';
 import ProfileUpdate from './components/Profile/ProfileUpdate';
+import Changepassword from './components/Profile/Changepassword';
 import Navigation from './components/Navigation';
 import Changepassword from './components/Profile/Changepassword';
 import Transactions from './components/Transaction/Transactions';
