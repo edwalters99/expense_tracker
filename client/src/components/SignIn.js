@@ -28,7 +28,7 @@ function SignIn(props) {
             <label>Password: </label>
             <input type='password' name='password' value={state.password} onChange={handleChange} />
 
-            {props.error ? <p>{props.error}</p> : null}
+            {props.error ? <p class="form-errors">{props.error}</p> : null}
 
             <input type='submit' value='Sign In' />
             

@@ -1,4 +1,5 @@
-.signup-form-errors {
+.form-errors {
+    margin-top: 1em;
     color: red;
     list-style: none;
 

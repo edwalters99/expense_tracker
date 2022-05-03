@@ -8,7 +8,8 @@ const ProfileView = (props) => {
             <h3 className="bg-light">User Profile</h3>
             <Form.Group className="mb-3">
                 <Form.Label  >First Name</Form.Label>
-                <Form.Control plaintext readOnly defaultValue={props.users.first_name} />
+                <p></p>
+                <Form.Text>{props.users.first_name}</Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Last Name</Form.Label>

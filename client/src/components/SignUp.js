@@ -48,7 +48,7 @@ function SignUp(props) {
             <input type='submit' value='Register' />
 
         {props.errors ? 
-            <ul className = "signup-form-errors"> {props.errors.map((error) => (
+            <ul className = "form-errors"> {props.errors.map((error) => (
                 <li key={error.id}>{error.title}</li>
                 ))}
             </ul> 
