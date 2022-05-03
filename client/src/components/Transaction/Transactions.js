@@ -37,7 +37,7 @@ const Transactions = (props) => {
                 onChangeFilter={filterChangeHandler}
               />
 
-              <TransactionList items={filteredTransactions} />
+              {/* <TransactionList items={filteredTransactions} /> */}
             </Card>
       </div>
     );
