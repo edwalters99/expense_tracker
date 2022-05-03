@@ -38,7 +38,9 @@ const TransactionItem = (props) => {
       })
       .then(response => {
         console.log(response.status)
-        props.onDeleteTransaction(props.id)
+        if (response.status === 204) {
+          props.onDeleteTransaction(props.id)
+        }
       })
     }
 
