@@ -1,5 +1,8 @@
 class TransactionsController < ApplicationController
-    skip_before_action :is_authorized, only: [:create,  :index]
+  # remove before deploy  
+  skip_before_action :is_authorized, only: [:create,  :index]
+
+
     def index
         transactions = Transaction.all
         render json: transactions
@@ -32,6 +35,7 @@ class TransactionsController < ApplicationController
             end
         else
             render json: {error: 'Invalid Credentials'}, status: :unauthorized
+        end
     end
 
 

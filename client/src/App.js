@@ -4,11 +4,6 @@ import { Routes, Route, Link } from "react-router-dom";
 import './App.css';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import Transactions from './components/Transaction/Transactions';
-import Navigation from './components/Navigation';
-import Category from './components/Category/Category';
-import axios from 'axios';
-import NewTransaction from './components/Transaction/NewTransaction';
 // import TransactionsDisplay from './components/Transaction/TransactionsDisplay';
 
 function App() {
