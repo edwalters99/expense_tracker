@@ -14,13 +14,12 @@ const TransactionEdit = (props)=>{
     const [categoryList, setCategoryList] = useState([]); 
     //check validation
     const [formIsValid, setFormISValid] = useState(true);
-
     const uploadImage =(e) => {
         setFormISValid(false);
         const image = e.target.files[0];
         const data = new FormData();
         data.append('file', image)
-        data.append('upload_preset', 'ese6jnd3')
+        data.append('upload_preset', 'expenseTrackr')
         data.append("cloud_name", 'dgpwctfjt')
         fetch("https://api.cloudinary.com/v1_1/dgpwctfjt/image/upload",{
             method: 'post',
@@ -48,46 +47,49 @@ const TransactionEdit = (props)=>{
         
         const timer = setTimeout(()=>{
             fetchCategories();
-        }, 1000);
+        }, 500);
         return () => clearTimeout(timer);    
     }, [input]);
     let record = props.items;
     let defaultType = record.type_of? record.type_of : "";
     let defaultAmount = record.amount? record.amount : "";
-    
+    let defaultUrl = record.receipt? record.receipt : "";
     let defaultDate = record.date? new Date(record.date).toISOString().split('T')[0]: "";
     let defaultTitle = record.title? record.title: "";
     let defaultDescription = record.description? record.description : "";
     let defaultFile = record.receipt? record.receipt : "";
-    let defaultCategory = record.category_id? record.category_id: "";
+    let defaultCategory = [];
+    categoryList.map((category)=> {
+        if (record.category_id && category.id === record.category_id){
+            defaultCategory.push(category.id, category.name);
+        }
+    });
+    console.log(enteredAmount, defaultAmount);
+    console.log(url, setUrl);
+    console.log(defaultCategory);
 
-    const submitHandler =(event) => {
+    const updateHandler =(event) => {
         event.preventDefault();  
-
-        // if (enteredAmount.trim()==="") {
-        //     setAmountIsValid(false);
-        //     return;
-        // }
-        // setAmountIsValid(true);
+        if (url !== defaultFile) {
+            setUrl(url); 
+        }
         const transactionData = {
-            type_of: enteredType,
-            amount: enteredAmount, 
-            title: enteredTitle,
-            description: enteredDescription,  
-            receipt: url, 
-            date: enteredDate,
-            category_id: Number(enteredCategory),
+            type_of: enteredType? enteredType:defaultType,
+            amount: enteredAmount? enteredAmount:defaultAmount, 
+            title: enteredTitle? enteredTitle:defaultTitle,
+            description: enteredDescription? enteredDescription:defaultDescription,  
+            receipt: url? url:defaultUrl, 
+            date: enteredDate? enteredDate: defaultDate,
+            category_id: Number(enteredCategory)? Number(enteredCategory):defaultCategory[0],
+            id: props.id
         };
-        props.onSaveTransactionData(transactionData);
-        setEnteredDescription('');
-        setEnteredAmount('');
-        setEnteredDate('');
-        setFormISValid(false);
+        props.onUpateTransactionData(transactionData);
+
     }
 
     return (
     <div >
-    <form onSubmit={submitHandler}>
+    <form onSubmit={updateHandler}>
         <Row className="align-items-center">
             <Col sm={4} className="my-1">
                 <label>Income/Expense</label>
@@ -106,9 +108,9 @@ const TransactionEdit = (props)=>{
     
             <Col sm={3} className="my-1">
                 <label>Category</label>
-                <Form.Select value={enteredCategory} onChange={(e)=>setEnteredCategory(e.target.value)}>
+                <Form.Select defaultValue={defaultCategory[0]} value={enteredCategory} onChange={(e)=>setEnteredCategory(e.target.value)}>
                 {categoryList.map(category => (
-                        <option value={category.id}>&#129409; {category.name}</option>
+                        <option defaultValue={defaultCategory[0]}value={category.id}>&#129409; {category.name}</option>
                 ))}
                 </Form.Select>
             </Col>
@@ -125,7 +127,7 @@ const TransactionEdit = (props)=>{
             </Col>
         </Row>    
         <Row className="align-items-center">
-            <Col sm={6} className="my-1">
+            <Col sm={5} className="my-1">
                 <label>Description</label>
                 <Form.Control type="text" defaultValue={defaultDescription}value={enteredDescription} onChange={(e)=> setEnteredDescription(e.target.value)}/>
             </Col>
@@ -134,15 +136,15 @@ const TransactionEdit = (props)=>{
                 <Form.Control type="file" onChange={uploadImage}/>
             </Col>
         
-            <Col sm={1} className='my-1'>
+            <Col sm={2} className='my-1'>
                 {formIsValid &&
-                    <Button type="submit">Add</Button>
+                    <Button type="submit">Update</Button>
                 }
                 {!formIsValid &&
                     <Button type="submit" disabled>Uploading..</Button>
                 }
             </Col>
-            <Col sm={1} className='btn-group ml-auto'>
+            <Col sm={2} className='btn-group ml-auto'>
                 <Button type="button" onClick={props.onCancel}>Cancel</Button>
             </Col>
             </Row>

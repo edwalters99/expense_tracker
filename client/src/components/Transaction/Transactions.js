@@ -37,7 +37,8 @@ const Transactions = (props) => {
                 selected={filteredMonth}
                 onChangeFilter={filterChangeHandler}
               />
-              <TransactionList items={filteredTransactions} onDeleteTransaction={props.onDeleteTransaction} />
+              <TransactionList items={filteredTransactions} onDeleteTransaction={props.onDeleteTransaction}
+              onUpdateTransaction={props.onUpdateTransaction} />
             </Card>
       </div>
     );

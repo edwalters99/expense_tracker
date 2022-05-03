@@ -6,9 +6,10 @@ class TransactionsController < ApplicationController
     end
   
     def create
-        puts params
-        @transaction = Transaction.create(transaction_params)
-        render json: @transaction, status: :created
+      puts params
+      @transaction = Transaction.create(transaction_params)
+      @user.transactions << @transaction  #GIVE THE NEW transaction TO THE CURRENT USER  --- OWNERSHIP  ---- 
+      render json: @transaction, status: :created
     end
 
     # # PATCH/PUT /transactions/1 or /transactions/1.json

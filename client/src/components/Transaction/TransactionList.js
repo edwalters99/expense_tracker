@@ -19,7 +19,9 @@ const TransactionList = (props) => {
               description={transaction.description}
               amount={transaction.amount}
               date={transaction.date}
+              category_id={transaction.category_id}
               onDeleteTransaction={props.onDeleteTransaction}
+              onUpdateTransaction={props.onUpdateTransaction}
             />
           </div>
         ))}

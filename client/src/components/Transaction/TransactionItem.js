@@ -14,7 +14,24 @@ const TransactionItem = (props) => {
     // }
 
     const showTransactionEdit = ()=>{
-      setIsEditing(!isEditing);
+      setIsEditing(true);
+    }
+    const updateHandler = (transactionData) => {
+      console.log(transactionData);
+      setIsEditing(false);
+      let token = localStorage.getItem('token');
+      fetch(`http://localhost:3000/transactions/${props.id}.json`, {
+          method: 'PATCH',
+          headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+          },
+          //body: JSON.stringify({"transaction": {"type_of": 'expense', amount: 11, title: 'test'}}),
+          body: JSON.stringify({"transaction": transactionData}),
+      }).then(()=>{
+          props.onUpdateTransaction(transactionData);
+      })   
+
     }
 
 <<<<<<< HEAD
@@ -58,7 +75,7 @@ const TransactionItem = (props) => {
           <Card className='transaction-item'>
             <TransactionDate date={props.date} />
             <div className='transaction-item__description'>
-              <h3>{props.type}</h3>
+              <h3>{props.category_id}</h3>
               <h4>{props.title}</h4>
               <span>{props.description}</span>
               <div className='transaction-item__price'>${props.amount}</div>
@@ -76,7 +93,7 @@ const TransactionItem = (props) => {
         }
         {isEditing &&
           <Card className='transaction-item'>
-            <TransactionEdit onCancel={stopEditingHandler}show={isEditing} items={transactionData}/>
+            <TransactionEdit onCancel={stopEditingHandler} onUpateTransactionData={updateHandler} items={transactionData}/>
           </Card>
         } 
       </li>
