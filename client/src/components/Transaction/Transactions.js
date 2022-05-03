@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TransactionList from './TransactionList';
 import TransactionsFilter from './TransactionsFilter';
 import Card from '../Card'
+import IncomeExpense from './IncomeExpense';
 import createRequest from '../../request';
 
 
@@ -33,12 +34,12 @@ const Transactions = (props) => {
   
     return (
       <div>
+            <IncomeExpense items={filteredTransactions}/>
             <Card className='Transactions'>
               <TransactionsFilter
                 selected={filteredMonth}
                 onChangeFilter={filterChangeHandler}
               />
-
               <TransactionList items={filteredTransactions} />
             </Card>
       </div>

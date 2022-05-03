@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import NewTransaction from './NewTransaction';
 import Transactions from './Transactions';
-import Navigation from '../Navigation';
 import createRequest from '../../request';
 
 const TransactionsDisplay = () => {
@@ -42,8 +41,7 @@ const TransactionsDisplay = () => {
     };
 
     return (
-        <div>
-            <Navigation />
+        <div >
             <NewTransaction onAddTransaction={addTransactionHandler}/>
             <Transactions items={transactions}/>
         </div>
