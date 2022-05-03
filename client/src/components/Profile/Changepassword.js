@@ -3,20 +3,14 @@ import { Navigate } from  'react-router-dom';
 import createRequest from '../../request';
 import Errors from './Errors'
 import { Form, Button } from 'react-bootstrap';
-const emailState = {
-    email: '',
-    error: ''
-}
 
-function ProfileUpdate(props) {
-
+function Changepassword() {
+    
     const [userDetails, setUserDetails] = useState({
-        first_name: '',
-        last_name: '',
-        email: ''
+        
+        password: '',
+        password_confirmation: ''
     })
-
-    const [errors, setErrors] = useState([]);
 
     useEffect( () => {
         console.log('fetching user')
@@ -24,28 +18,28 @@ function ProfileUpdate(props) {
 
     }, [])
 
-
     const fetchUser = () => {
         createRequest("/profile.json").then((response) => {
             setUserDetails(response);
         });
     };
     
+    const [errors, setErrors] = useState([]);
+
     const handleChange = (event) => {
         setUserDetails((prev) => ({ ...prev, [event.target.name]: event.target.value }));
     }
 
-
-    
     const handleSubmit = event => {
         event.preventDefault();
-        console.log('testing');
-        saveProfile()
+         savePassword()
     }
-    
-    const saveProfile = event => {
+
+    const savePassword = event => {
         console.log('test saveProfile');
-        console.log( 'userDetails:', userDetails );
+        console.log('UserDetails', userDetails );
+
+        // const updatedUser = {...userDetails, id: 71}
         let token = localStorage.getItem('token');
         fetch('http://localhost:3000/profile_update.json?', {
             method: 'PATCH',
@@ -61,23 +55,22 @@ function ProfileUpdate(props) {
             setErrors(jsonResponse.errors)
         })
     }
-
+  
+  
     return (
+    
 
         <div className="col-md-4 offset-md-4 bg-light p-3">
-        <h3 className="bg-light">Update Profile</h3>
+        <h3 className="bg-light">Change password</h3>
         <Form onSubmit = { handleSubmit }>
+        
         <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>First Name</Form.Label>
-            <Form.Control name='first_name' onChange={ handleChange } value={userDetails.first_name} required />
+            <Form.Label>New Password</Form.Label>
+            <Form.Control name='password' type="password" onChange={ handleChange } value={ userDetails.password } required />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control name='last_name' onChange={ handleChange } value={ userDetails.last_name } required />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control name='email' type="email" onChange={ handleChange } value={userDetails.email} required  />
+            <Form.Label>Password Confirmation</Form.Label>
+            <Form.Control name='password_confirmation' type="password" onChange={ handleChange } value={userDetails.password_confirmation} required  />
         </Form.Group>
 
         <Button variant="secondary" type="submit">
@@ -86,10 +79,11 @@ function ProfileUpdate(props) {
 
         </Form>
         
-        { errors ? < Errors errors = {errors} /> : <Navigate to = "/profile" /> }
+        {/* { errors ? < Errors errors = {errors} /> : <Navigate to = "/profile" /> } */}
                
        </div>
     )
+  
 }
 
-export default ProfileUpdate;
+export default Changepassword
