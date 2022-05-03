@@ -34,7 +34,10 @@ class UsersController < ApplicationController
   def update
     # @user.update(user_params)
     # render json: @user, status: :created
-
+    current_user
+    puts "first_name" 
+    puts @user.first_name
+   
     if @user.update(user_params)
       render json: @user, status: :created 
     else
@@ -56,5 +59,6 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :password, :password_confirmation)
+
   end
 end
