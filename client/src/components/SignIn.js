@@ -23,7 +23,7 @@ function SignIn(props) {
             <h1>Sign In</h1>
 
             <label>Email: </label>
-            <input name='email' value={state.email} onChange={handleChange} />
+            <input type='email' name='email' value={state.email} onChange={handleChange} />
 
             <label>Password: </label>
             <input type='password' name='password' value={state.password} onChange={handleChange} />

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import createRequest from '../../request';
 import { Form, Button } from 'react-bootstrap';
+const emailState = {
+    email: '',
+    error: ''
+}
 
 class ProfileUpdate extends Component {
     constructor() {
@@ -72,7 +76,7 @@ class ProfileUpdate extends Component {
         return(
             <div className="col-md-4 offset-md-4 bg-light p-3">
                 <h3 className="bg-light">Update Profile</h3>
-                <Form>
+                <Form onSubmit={ this._handleSubmit }>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>First Name</Form.Label>
                     <Form.Control name='first_name' onChange={ this._handleChange } value={this.state.first_name} />
@@ -83,15 +87,14 @@ class ProfileUpdate extends Component {
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control name='email' type="email" onChange={ this._handleChange } value={this.state.email}  />
+                    <Form.Control name='email' type='email' onChange={ this._handleChange } value={this.state.email} required/>
                 </Form.Group>
 
-                <Button onClick={ this._handleSubmit }  variant="secondary" type="submit">
+                <Button href='/profile' variant="secondary" type="submit">
                     Submit
                 </Button>
                 </Form>
             </div>
-
         );
     };
 }
