@@ -22,7 +22,7 @@ const IncomeExpense = (props) => {
                 <Card.Header>Income</Card.Header>
                 <Card.Body>
                     <Card.Text>
-                        {incomeAmount.toFixed(2)}
+                        $ {incomeAmount.toFixed(2)}
                     </Card.Text>
                 </Card.Body>
                 </Card>
@@ -32,7 +32,7 @@ const IncomeExpense = (props) => {
                 <Card.Header>Expense</Card.Header>
                 <Card.Body>
                     <Card.Text>
-                        {expenseAmount.toFixed(2)}
+                        $ {expenseAmount.toFixed(2)}
                     </Card.Text>
                 </Card.Body>
                 </Card>
@@ -42,7 +42,7 @@ const IncomeExpense = (props) => {
                 <Card.Header>balance</Card.Header>
                 <Card.Body>
                     <Card.Text>
-                        {(incomeAmount-expenseAmount).toFixed(2)}
+                        $ {(incomeAmount-expenseAmount).toFixed(2)}
                     </Card.Text>
                 </Card.Body>
                 </Card>

@@ -135,7 +135,7 @@ const TransactionForm = (props)=>{
                     <Button type="submit" disabled>Uploading..</Button>
                 }
             </Col>
-            <Col sm={1} className='my-1'>
+            <Col sm={1} className='btn-group ml-auto'>
                 <Button type="button" onClick={props.onCancel}>Cancel</Button>
             </Col>
             </Row>
