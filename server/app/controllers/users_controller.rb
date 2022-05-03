@@ -34,13 +34,13 @@ class UsersController < ApplicationController
   def update
     # @user.update(user_params)
     # render json: @user, status: :created
-    current_user
-    puts "first_name" 
-    puts @user.first_name
-    puts "params"
-    puts params
-    puts "user_params"
-    puts user_params
+    # current_user
+    # puts "first_name" 
+    # puts @user.first_name
+    # puts "params"
+    # puts params
+    # puts "user_params"
+    # puts user_params
     
     if @user.update(user_params)
       render json: @user, status: :created 
