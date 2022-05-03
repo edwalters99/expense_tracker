@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import createRequest from '../request';
 import {Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 function Navigation() {
+
+    const [userDetails, setUserDetails] = useState({
+        error: ''
+    })
+
+    useEffect( () => {
+        console.log('fetching user')
+        fetchUser()
+    }, [])
+
+
+    const fetchUser = () => {
+        createRequest("/profile.json").then((response) => {
+            setUserDetails(response);
+            console.log(response)
+        });
+    };
+
+
     return (
         
     <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
