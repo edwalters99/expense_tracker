@@ -22,11 +22,13 @@ const Transactions = (props) => {
     };
   
     const filteredTransactions = props.items.filter((transaction) => {
-        console.log(filteredMonth);
         if(filteredMonth === "-"){
-            return transaction.date.getFullYear().toString()==='2022';
+          return new Date(transaction.date).getFullYear().toString()==='2022';
+        } else {
+          console.log(transaction)
+          console.log(new Date(transaction.date).getMonth());
+          return new Date(transaction.date).getMonth().toString()===filteredMonth;
         }
-        return  transaction.date.getMonth().toString()===filteredMonth;
     });
   
     return (
@@ -37,7 +39,7 @@ const Transactions = (props) => {
                 onChangeFilter={filterChangeHandler}
               />
 
-              {/* <TransactionList items={filteredTransactions} /> */}
+              <TransactionList items={filteredTransactions} />
             </Card>
       </div>
     );

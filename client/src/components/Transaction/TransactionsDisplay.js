@@ -43,7 +43,6 @@ const TransactionsDisplay = () => {
 
     return (
         <div>
-            {console.log(transactions)}
             <Navigation />
             <NewTransaction onAddTransaction={addTransactionHandler}/>
             <Transactions items={transactions}/>
