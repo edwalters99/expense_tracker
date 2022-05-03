@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import NewTransaction from './NewTransaction';
 import Transactions from './Transactions';
+import Card from '../Card';
 import createRequest from '../../request';
 import TransactionItem from './TransactionItem';
 
@@ -52,8 +53,14 @@ const TransactionsDisplay = () => {
 
     return (
         <div >
+
             <NewTransaction onAddTransaction={addTransactionHandler}/>
+<<<<<<< HEAD
             <Transactions items={transactions} onDeleteTransaction={deleteTransactionHandler}/>
+=======
+            
+            <Transactions items={transactions}/>
+>>>>>>> 8ccecee (transaction edit page)
         </div>
     )
 

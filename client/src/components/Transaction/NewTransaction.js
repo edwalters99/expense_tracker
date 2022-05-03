@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import TransactionForm from './TransactionForm';
+import Card from '../Card';
+import {Button} from 'react-bootstrap';
 import './NewTransaction.css';
 
 const NewTransaction = (props) => {
@@ -31,8 +33,9 @@ const NewTransaction = (props) => {
 
   return (
     <div className='new-transaction'>
+        <Card className='transaction-item'>
         {!isEditing && (
-            <button onClick={startEditingHandler}>Add New Expense</button>
+            <Button className="secondary"onClick={startEditingHandler}>Add New Expense</Button>
         )}
         {isEditing && (
             <TransactionForm 
@@ -40,6 +43,7 @@ const NewTransaction = (props) => {
                 onCancel={stopEditingHandler}
             />
         )} 
+        </Card>
     </div>
   );
 };
