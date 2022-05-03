@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import createRequest from '../request';
-import React from 'react';
 import {Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 function Navigation() {
