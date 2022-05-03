@@ -8,7 +8,7 @@ import Category from './components/Category/Category';
 import Profile  from './components/Profile/Profile';
 import ProfileUpdate from './components/Profile/ProfileUpdate';
 import Navigation from './components/Navigation';
-
+import Changepassword from './components/Profile/Changepassword';
 import Transactions from './components/Transaction/Transactions';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TransactionsDisplay from './components/Transaction/TransactionsDisplay';
@@ -22,7 +22,9 @@ root.render(
         <Route path='categories' element={<Category />} />
         <Route path='profile' element={<Profile />} />
         <Route path='profile/edit' element={<ProfileUpdate />} />
+        <Route path='profile/changepassword' element={<Changepassword />} />
         <Route path="transactions" element={<TransactionsDisplay/>}/>
+        
       </Routes>
     </BrowserRouter>
 );

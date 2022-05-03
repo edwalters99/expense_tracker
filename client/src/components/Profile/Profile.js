@@ -22,6 +22,9 @@ const Profile = (props) => {
             <div>
                 <ProfileView view={ state } />
                 <Button className="offset-md-4" variant="secondary" href="/profile/edit">Edit Profile</Button> 
+                <span className='changepassword'>
+                    <Button className='btn-changepassword' variant="secondary" href="/profile/changepassword">Change Password</Button> 
+                </span>
             </div>
     )
 }
