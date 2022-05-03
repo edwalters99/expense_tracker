@@ -25,6 +25,23 @@ const TransactionItem = (props) => {
 
     }
 
+    const handleDelele = (event) => {
+      event.preventDefault();
+      console.log(props.id)
+      let token = localStorage.getItem('token')
+      const id = props.id
+      fetch(`http://localhost:3000/transactions/${id}`, {
+          method: 'DELETE',
+          headers: {  
+            'Authorization': `Bearer ${token}`
+          }
+      })
+      .then(response => {
+        console.log(response.status)
+        props.onDeleteTransaction(props.id)
+      })
+    }
+
     return (
       <li>
         {/* {isEditing && 
@@ -53,7 +70,7 @@ const TransactionItem = (props) => {
             </div>
             <div>
               <Button className='btn btn-info mr-1'onClick={handleEdit}>Edit</Button>
-              <Button className='btn btn-danger'>Delete</Button>
+              <Button className='btn btn-danger' onClick={handleDelele}>Delete</Button>
             </div>
           </Card>
       </li>

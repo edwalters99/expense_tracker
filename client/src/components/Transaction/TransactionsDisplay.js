@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import NewTransaction from './NewTransaction';
 import Transactions from './Transactions';
 import createRequest from '../../request';
+import TransactionItem from './TransactionItem';
 
 const TransactionsDisplay = () => {
     const [transactions, setTransactions] = useState([]);
@@ -40,10 +41,19 @@ const TransactionsDisplay = () => {
         });
     };
 
+    const deleteTransactionHandler = (deletedId) => {
+        setTransactions((prevTransactions) => {
+            const delelteTransaction = prevTransactions.filter(function (transaction) {
+                return transaction.id != deletedId
+            });
+            return delelteTransaction
+        });
+    };
+
     return (
         <div >
             <NewTransaction onAddTransaction={addTransactionHandler}/>
-            <Transactions items={transactions}/>
+            <Transactions items={transactions} onDeleteTransaction={deleteTransactionHandler}/>
         </div>
     )
 

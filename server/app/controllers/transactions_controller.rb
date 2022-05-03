@@ -1,10 +1,7 @@
 class TransactionsController < ApplicationController
-  # remove before deploy  
-  skip_before_action :is_authorized, only: [:create,  :index]
-
 
     def index
-        transactions = Transaction.all
+        transactions = @user.transactions
         render json: transactions
     end
   
