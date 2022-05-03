@@ -39,14 +39,13 @@ function Changepassword() {
         console.log('test saveProfile');
         console.log('UserDetails', userDetails );
 
-        // const updatedUser = {...userDetails, id: 71}
         let token = localStorage.getItem('token');
         fetch('http://localhost:3000/profile_update.json?', {
             method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
-            },body: JSON.stringify( userDetails ),
+            },body: JSON.stringify( {user: userDetails} ),
         })
         .then(response => response.json())
         .then(jsonResponse => {
