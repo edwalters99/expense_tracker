@@ -6,9 +6,14 @@ class ProfileUpdate extends Component {
     constructor() {
         super();
         this.state = {
-            users: []
+          
+                first_name: '',
+                last_name: '',
+                email: ''    
+           
         };
-        this._handleFirstName = this._handleFirstName.bind(this);
+        this._handleChange = this._handleChange.bind(this);
+        this._handleSubmit = this._handleSubmit.bind(this);
         this.saveProfile = this.saveProfile.bind(this)
     }
 
@@ -16,10 +21,11 @@ class ProfileUpdate extends Component {
                 
         const fetchUser = () => {
             createRequest("/profile.json").then((response) => {
-                console.log(response)
+              
  
-                this.setState({users: response});
-
+                this.setState(response);
+                console.log(this.state)
+               
                 // setTimeout(fetchCategories, 5000);
             });
         };
@@ -27,19 +33,39 @@ class ProfileUpdate extends Component {
     }
     
 
-    _handleFirstName(event) {
-        console.log(event.target.value)
-        this.setState({ users: event.target.value})
-    }
-
-    saveProfile(event) {
-        event.preventDefault();
-        createRequest("/profile.json").then((response) => {
-            console.log(response)
-            this.setState({users: response}) 
-        });    
+    // dynamic function
+    _handleChange = (event) => {
+        console.log('test')
+        this.setState({[event.target.name]: event.target.value})
     }
     
+    _handleSubmit = (event) => {
+        event.preventDefault();
+        console.log('testing');
+        this.saveProfile()
+    }
+    
+
+    saveProfile = () => {
+        console.log('test saveProfile');
+        const userData = this.state;
+        console.log( userData );
+        let token = localStorage.getItem('token');
+        fetch('http://localhost:3000/profile_update.json?', {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },body: JSON.stringify(userData),
+        })
+        .then(response => response.json())
+        .then(results => console.log(results))
+        .then(response => response.json())
+        .then(jsonResponse => {
+            // setSignupErrors(jsonResponse.errors);
+            console.log(jsonResponse.errors)
+        })
+    }
 
     render() {
         
@@ -49,18 +75,18 @@ class ProfileUpdate extends Component {
                 <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>First Name</Form.Label>
-                    <Form.Control onChange={ this._handleFirstName } value={this.state.users.first_name} />
+                    <Form.Control name='first_name' onChange={ this._handleChange } value={this.state.first_name} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Last Name</Form.Label>
-                    <Form.Control value={this.state.users.last_name} />
+                    <Form.Control name='last_name' onChange={ this._handleChange } value={ this.state.last_name } />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" value={this.state.users.email} />
+                    <Form.Control name='email' type="email" onChange={ this._handleChange } value={this.state.email}  />
                 </Form.Group>
 
-                <Button onSubmit={ this.saveProfile} variant="secondary" type="submit" onClick={ this._handleInput }>
+                <Button onClick={ this._handleSubmit }  variant="secondary" type="submit">
                     Submit
                 </Button>
                 </Form>
@@ -71,3 +97,41 @@ class ProfileUpdate extends Component {
 }
 
 export default ProfileUpdate;
+
+
+// {props.errors ? 
+//     <ul className = "signup-form-errors"> {props.errors.map((error) => (
+//         <li key={error.id}>{error.title}</li>
+//         ))}
+//     </ul> 
+// : null}
+
+
+// function signUp (user) {
+//     fetch('http://localhost:3000/users', {
+//       method: 'POST',
+//       headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({
+//         user: {
+//           email: user.email,
+//           first_name: user.first_name,
+//           last_name: user.last_name,
+//           password: user.password,
+//           password_confirmation: user.password_confirmation
+//         }
+//       })
+//     })
+//     .then(response => response.json())
+//     .then(jsonResponse => {
+//       if (jsonResponse.errors) {
+//         setSignupErrors(jsonResponse.errors);
+//         console.log(jsonResponse.errors)
+//       }
+//       else {
+//         setUser(jsonResponse)
+//       }
+//     })
+//   }

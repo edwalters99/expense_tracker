@@ -10,6 +10,18 @@ function createRequest(url) {
     return instance
 }
 
+function postRequest(url) {
+  let token = localStorage.getItem('token')
+  const instance = fetch(`http://localhost:3000${url}`, {
+      method: 'PATCH',
+      headers: {  
+        'Authorization': `Bearer ${token}`
+      }
+  })
+  .then(response => response.json())
+  return instance
+}
+
 export default createRequest;
 
 // exemple to call the function
