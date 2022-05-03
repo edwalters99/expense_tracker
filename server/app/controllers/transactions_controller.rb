@@ -28,14 +28,10 @@ class TransactionsController < ApplicationController
 
     # DELETE /transactions/1 or /transactions/1.json
     def destroy
-        if @user.user_id == @transaction.user_id 
-            @transaction.destroy
-            respond_to do |format|
-                format.json { head :no_content }
-            end
-        else
-            render json: {error: 'Invalid Credentials'}, status: :unauthorized
-        end
+      transactions = @user.transactions
+      transaction = transactions.find(params[:id])
+      transaction.destroy
+      head :no_content
     end
 
 
