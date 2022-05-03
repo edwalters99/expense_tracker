@@ -19,15 +19,15 @@ const Transactions = (props) => {
     // })
     const filterChangeHandler = (selectedMonth) => {
         setFilteredMonth(selectedMonth);
-        console.log(selectedMonth);
+        // console.log(selectedMonth);
     };
   
     const filteredTransactions = props.items.filter((transaction) => {
         if(filteredMonth === "-"){
           return new Date(transaction.date).getFullYear().toString()==='2022';
         } else {
-          console.log(transaction)
-          console.log(new Date(transaction.date).getMonth());
+          // console.log(transaction)
+          // console.log(new Date(transaction.date).getMonth());
           return new Date(transaction.date).getMonth().toString()===filteredMonth;
         }
     });

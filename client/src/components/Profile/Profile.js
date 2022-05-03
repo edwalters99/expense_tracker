@@ -1,41 +1,29 @@
-import React, { Component } from 'react';
-import Navigation from '../Navigation';
+import React, { useEffect, useState } from 'react';
 import ProfileView from './ProfileView';
-import ProfileUpdate from './ProfileUpdate';
 import createRequest from '../../request';
-import { Nav, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
-class Profile extends Component {
-    constructor() {
-        super();
-        this.state = {
-            users: []
-        };
-        console.log(this.state.users)
-    }
+const Profile = (props) => {
+    const [state, setState] = useState( {
+        users: []
+    });
 
-    componentDidMount() {
-                
+    useEffect( () => {
         const fetchUser = () => {
             createRequest("/profile.json").then((response) => {
                 console.log(response)
- 
-                this.setState({users: response});
-
-                // setTimeout(fetchCategories, 5000);
+                setState({users: response});
             });
         };
         fetchUser();
-    }
+    }, []);
 
-    render() {
-        return (
+    return (
             <div>
-                <ProfileView users={ this.state.users } />
+                <ProfileView view={ state } />
                 <Button className="offset-md-4" variant="secondary" href="/profile/edit">Edit Profile</Button> 
             </div>
-        );
-    }
-
+    )
 }
+
 export default Profile;

@@ -31,7 +31,7 @@ function SignUp(props) {
             <h1>Sign Up</h1>
 
             <label>Email: </label>
-            <input name='email' value={state.email} onChange={handleChange} />
+            <input name='email' type='email' value={state.email} onChange={handleChange} />
 
             <label>Name: </label>
             <input name='first_name' value={state.first_name} onChange={handleChange} />
