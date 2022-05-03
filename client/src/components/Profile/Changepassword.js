@@ -12,6 +12,8 @@ function Changepassword() {
         password_confirmation: ''
     })
 
+    const [errors, setErrors] = useState([]);
+
     useEffect( () => {
         console.log('fetching user')
         fetchUser()
@@ -24,7 +26,7 @@ function Changepassword() {
         });
     };
     
-    const [errors, setErrors] = useState([]);
+   
 
     const handleChange = (event) => {
         setUserDetails((prev) => ({ ...prev, [event.target.name]: event.target.value }));
@@ -63,11 +65,11 @@ function Changepassword() {
         <h3 className="bg-light">Change password</h3>
         <Form onSubmit = { handleSubmit }>
         
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>New Password</Form.Label>
             <Form.Control name='password' type="password" onChange={ handleChange } value={ userDetails.password } required />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicPasswordConfirmation">
             <Form.Label>Password Confirmation</Form.Label>
             <Form.Control name='password_confirmation' type="password" onChange={ handleChange } value={userDetails.password_confirmation} required  />
         </Form.Group>
