@@ -1,18 +1,33 @@
 import React, {useState} from 'react';
 import Card from '../Card'
 import './TransactionItem.css';
+import {Button} from 'react-bootstrap';
 import TransactionDate from './TransactionDate';
 
 const TransactionItem = (props) => {
   const [isEditing, setIsEditing] = useState(false);
 
-    const handleToggle= () => {
-      setIsEditing(true);
+    // const handleToggle= () => {
+    //   setIsEditing(!isEditing);
+    // }
+
+    const handleEdit = (event) => {
+      event.preventDefault();
+      // const transactionData = {
+      //   type_of: enteredType,
+      //   amount: enteredAmount, 
+      //   title: enteredTitle,
+      //   description: enteredDescription,  
+      //   receipt: url, 
+      //   date: enteredDate,
+      //   category_id: Number(enteredCategory),
+      // };
+
     }
 
     return (
       <li>
-        {isEditing && 
+        {/* {isEditing && 
         <Card className='transaction-item'>
           <TransactionDate date={props.date} />
           <div className='transaction-item__description'>
@@ -22,12 +37,12 @@ const TransactionItem = (props) => {
             <div className='transaction-item__price'>${props.amount}</div>
           </div>
           <div>
-            <button>Update</button>
-            <button>Cancel</button>
+            <Button className="btn btn-info mr-1"onClick={handleEdit}>Update</Button>
+            <Button className="btn btn-danger" onClick={handleToggle}>Cancel</Button>
           </div>
         </Card>
         }
-        {!isEditing &&
+        {!isEditing && */}
           <Card className='transaction-item'>
             <TransactionDate date={props.date} />
             <div className='transaction-item__description'>
@@ -37,13 +52,10 @@ const TransactionItem = (props) => {
               <div className='transaction-item__price'>${props.amount}</div>
             </div>
             <div>
-              <button onClick={handleToggle}>Edit</button>
-              <button>Delete</button>
+              <Button className='btn btn-info mr-1'onClick={handleEdit}>Edit</Button>
+              <Button className='btn btn-danger'>Delete</Button>
             </div>
           </Card>
-        
-        
-        }
       </li>
     );
   };

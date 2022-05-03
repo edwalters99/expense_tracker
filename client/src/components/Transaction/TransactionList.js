@@ -5,8 +5,6 @@ import './TransactionList.css'
 
 const TransactionList = (props) => {
   if (props.items.length === 0) {
-    // {console.log(props.items, "if")}
-    // return <h2 className='transaction-list__fallback'>Found no transaction.</h2>;
     return <h2>Found no transaction.</h2>;
   } else {
     return (
