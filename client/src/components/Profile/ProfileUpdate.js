@@ -52,7 +52,7 @@ function ProfileUpdate(props) {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
-            },body: JSON.stringify( userDetails ),
+            },body: JSON.stringify( {user: userDetails} ),
         })
         .then(response => response.json())
         .then(jsonResponse => {
@@ -67,11 +67,11 @@ function ProfileUpdate(props) {
         <div className="col-md-4 offset-md-4 bg-light p-3">
         <h3 className="bg-light">Update Profile</h3>
         <Form onSubmit = { handleSubmit }>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicFirstName">
             <Form.Label>First Name</Form.Label>
             <Form.Control name='first_name' onChange={ handleChange } value={userDetails.first_name} required />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicLastName">
             <Form.Label>Last Name</Form.Label>
             <Form.Control name='last_name' onChange={ handleChange } value={ userDetails.last_name } required />
         </Form.Group>
