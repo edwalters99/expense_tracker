@@ -14,27 +14,9 @@ const TransactionItem = (props) => {
     // }
 
     const showTransactionEdit = ()=>{
-      setIsEditing(true);
-    }
-    const updateHandler = (transactionData) => {
-      console.log(transactionData);
-      setIsEditing(false);
-      let token = localStorage.getItem('token');
-      fetch(`http://localhost:3000/transactions/${props.id}.json`, {
-          method: 'PATCH',
-          headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-          },
-          //body: JSON.stringify({"transaction": {"type_of": 'expense', amount: 11, title: 'test'}}),
-          body: JSON.stringify({"transaction": transactionData}),
-      }).then(()=>{
-          props.onUpdateTransaction(transactionData);
-      })   
-
+      setIsEditing(!isEditing);
     }
 
-<<<<<<< HEAD
     const handleDelele = (event) => {
       event.preventDefault();
       console.log(props.id)
@@ -54,7 +36,6 @@ const TransactionItem = (props) => {
       })
     }
 
-=======
     const stopEditingHandler = ()=>{
       setIsEditing(false);
     }
@@ -68,32 +49,28 @@ const TransactionItem = (props) => {
         category_id: Number(props.category_id),
     }
     console.log(isEditing);
->>>>>>> 8ccecee (transaction edit page)
     return (
       <li>
         {!isEditing && 
           <Card className='transaction-item'>
             <TransactionDate date={props.date} />
             <div className='transaction-item__description'>
-              <h3>{props.category_id}</h3>
+              <h3>{props.type}</h3>
               <h4>{props.title}</h4>
               <span>{props.description}</span>
               <div className='transaction-item__price'>${props.amount}</div>
             </div>
             <div>
-<<<<<<< HEAD
               <Button className='btn btn-info mr-1'onClick={handleEdit}>Edit</Button>
               <Button className='btn btn-danger' onClick={handleDelele}>Delete</Button>
-=======
               <Button className='btn btn-info mr-1'onClick={showTransactionEdit}>Edit</Button>
               <Button className='btn btn-danger'>Delete</Button>
->>>>>>> 8ccecee (transaction edit page)
             </div>
           </Card>
         }
         {isEditing &&
           <Card className='transaction-item'>
-            <TransactionEdit onCancel={stopEditingHandler} onUpateTransactionData={updateHandler} items={transactionData}/>
+            <TransactionEdit onCancel={stopEditingHandler}show={isEditing} items={transactionData}/>
           </Card>
         } 
       </li>

@@ -42,17 +42,6 @@ const TransactionsDisplay = () => {
         });
     };
 
-    const updateTransactionHandler =(transactionData)=>{
-        console.log(transactionData);
-        setTransactions((prevTransactions)=> {
-            const updatedTransaction = prevTransactions.filter(
-                function(transaction) {
-                    return transaction.id === transactionData.id
-                });
-            return [updatedTransaction,...prevTransactions];
-        })
-    }
-
     const deleteTransactionHandler = (deletedId) => {
         setTransactions((prevTransactions) => {
             const delelteTransaction = prevTransactions.filter(function (transaction) {
@@ -66,16 +55,7 @@ const TransactionsDisplay = () => {
         <div >
 
             <NewTransaction onAddTransaction={addTransactionHandler}/>
-<<<<<<< HEAD
-<<<<<<< HEAD
             <Transactions items={transactions} onDeleteTransaction={deleteTransactionHandler}/>
-=======
-            
-            <Transactions items={transactions}/>
->>>>>>> 8ccecee (transaction edit page)
-=======
-            <Transactions items={transactions} onDeleteTransaction={deleteTransactionHandler} onUpdateTransaction={updateTransactionHandler}/>
->>>>>>> 44117d3 (update edit transaction)
         </div>
     )
 

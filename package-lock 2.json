@@ -1,0 +1,10 @@
+{
+  "name": "expense-tracker-server",
+  "lockfileVersion": 2,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "expense-tracker-server"
+    }
+  }
+}
