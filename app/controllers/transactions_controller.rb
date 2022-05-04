@@ -24,7 +24,6 @@ class TransactionsController < ApplicationController
       end
     end
 
-    # DELETE /transactions/1 or /transactions/1.json
     def destroy
       transactions = @user.transactions
       transaction = transactions.find(params[:id])
