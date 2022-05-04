@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     # puts "params"
     # puts params
     # puts "user_params"
-    # puts user_params
+    # puts user_params 
     
     if @user.update(user_params)
       render json: @user, status: :created 

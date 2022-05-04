@@ -15,13 +15,21 @@ class TransactionsController < ApplicationController
     # # PATCH/PUT /transactions/1 or /transactions/1.json
     
     def update
-      respond_to do |format|
+      puts transaction_params
+      @transaction = Transaction.find params[:id]
+      puts '#################', @transaction.id
+      # respond_to do |format|
         if @transaction.update(transaction_params)
-          format.json { render :show, status: :ok, location: @transaction }
+          # format.json { render :show, status: :ok, location: @transaction }
+          render json: @transaction, status: :created 
         else
           format.json { render json: @transaction.errors, status: :unprocessable_entity }
         end
-      end
+    end
+
+    def show 
+      @transaction = Transaction.find params[:id]
+      render json: @transaction
     end
 
     def destroy
@@ -34,7 +42,7 @@ class TransactionsController < ApplicationController
 
     private
     def transaction_params
-        params.require(:transaction).permit(:type_of, :amount, :title, :description, :date, :receipt, :category_id, :user_id)
+        params.require(:transaction).permit(:id,:type_of, :amount, :title, :description, :date, :receipt, :category_id, :user_id)
     end
     
   end

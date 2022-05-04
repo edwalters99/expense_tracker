@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   post '/login', to: 'users#login'
   get '/profile', to: "users#user_profile"
   patch '/profile_update', to: "users#update"
-
+  patch '/transaction_update', to: "transactions#update"
   
   get '/user_categories' => 'categories#user_index'
   
