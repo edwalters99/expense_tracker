@@ -16,6 +16,7 @@ class UsersController < ApplicationController
     # to render certain columns only (basic method)
 
     # For more control use user_serializer.rb
+    #
 
   def show 
     @user = User.find params[:id]
