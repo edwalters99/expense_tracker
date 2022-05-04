@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
-    before_action :set_category, only: %i[ show edit update destroy ]
-    skip_before_action :is_authorized, only: [:create,  :index]
+   
+   
     # GET /categories or /categories.json
     def index
       @categories = Category.order('id DESC')
