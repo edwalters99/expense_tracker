@@ -26,14 +26,36 @@ puts "#{ User.count } users"
 
 
 Category.destroy_all
-c1 = Category.create :name => "Groceries", :icon => "https://placekitten.com/50/50"
 
-c2 = Category.create :name => "Transport", :icon => "https://placekitten.com/51/50"
+c1 = Category.create :name => "Salary", :icon => "💰"
 
-c3 = Category.create :name => "Takeaways", :icon => "https://placekitten.com/50/51"
+c2 = Category.create :name => "Cash", :icon => "👛"
 
-c4 = Category.create :name => "Salary", :icon => "https://placekitten.com/51/51"
+c3 = Category.create :name =>'Other Income', :icon => '💸'
 
+c4 = Category.create :name => "Groceries", :icon => "🛒"
+
+c5 = Category.create :name => "Transportation", :icon => "🚙"
+
+c6 = Category.create :name => "Insurance", :icon => "🧷"
+
+c7 = Category.create :name => "Medical", :icon => "😷"
+
+c8 = Category.create :name => "Mortgage/Loan", :icon => "🏦"
+
+c9 = Category.create :name => "Household items", :icon => "🏠"
+
+c10 = Category.create :name => "Entertainment", :icon => "🎭"
+
+c11 = Category.create :name => "Education", :icon => "📖"
+
+c12 = Category.create :name => "Gifts/Donation", :icon => "🎁"
+
+c13 = Category.create :name => "Personal", :icon => '🛍️'
+
+c14 = Category.create :name => "Takeaways", :icon => "🍔"
+
+c15 = Category.create :name => "MisCellaneous", :icon => "🏷"
 puts "#{ Category.count } categories"
 
 
