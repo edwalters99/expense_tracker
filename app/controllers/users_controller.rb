@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # before deploy eliminate the access of the index
-  skip_before_action :is_authorized, only: [:create, :login, :index]
+  skip_before_action :is_authorized, only: [:create, :login]
   include ErrorSerializer
   
   def user_profile
@@ -12,12 +12,6 @@ class UsersController < ApplicationController
     render json: @users
   end
   
-    # render json: @users, only: [:first_name] 
-    # to render certain columns only (basic method)
-
-    # For more control use user_serializer.rb
-    #
-
   def show 
     @user = User.find params[:id]
     render json: @user
@@ -33,16 +27,6 @@ class UsersController < ApplicationController
   end 
 
   def update
-    # @user.update(user_params)
-    # render json: @user, status: :created
-    # current_user
-    # puts "first_name" 
-    # puts @user.first_name
-    # puts "params"
-    # puts params
-    # puts "user_params"
-    # puts user_params 
-    
     if @user.update(user_params)
       render json: @user, status: :created 
     else

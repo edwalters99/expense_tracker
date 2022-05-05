@@ -55,7 +55,8 @@ c13 = Category.create :name => "Personal", :icon => '🛍️'
 
 c14 = Category.create :name => "Takeaways", :icon => "🍔"
 
-c15 = Category.create :name => "MisCellaneous", :icon => "🏷"
+c15 = Category.create :name => "Miscellaneous", :icon => "🏷"
+
 puts "#{ Category.count } categories"
 
 
