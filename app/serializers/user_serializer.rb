@@ -3,7 +3,3 @@ class UserSerializer < ActiveModel::Serializer
   has_many :transactions
   has_many :categories
 end
-
-## example:
-# attribute :email, if: :current_user
-# https://www.youtube.com/watch?v=Ah5SaN1linA
